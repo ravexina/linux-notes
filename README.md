@@ -4,7 +4,7 @@
 This project contains my GNU/Linux notes; Most of the topics included are from different exams like LPIC, RHCSA and LFCS. 
 
 ## How to use it?
-You can simply click on `*.ipynb` files to view them in your browser, you can also grab a copy of project or clone it using `git`, then use `jupyter-notebook` to viwe/edit `ipynb` files.
+You can simply click on `*.ipynb` files to view them in your browser, you can also grab a copy of project or clone it using `git`, then use `jupyter-notebook` to view/edit `ipynb` files.
 
 There is a html export of project available at: https://ravexina.github.io/linux-notes too, you can browse and explore it more eaisly if you wish.
 
