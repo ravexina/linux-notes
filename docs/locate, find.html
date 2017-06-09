@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Ravexna's Linux Notes (LPIC, LFCS, RHCSA)</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>locate, find</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11781,52 +11781,859 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Linux-Notes">Linux Notes<a class="anchor-link" href="#Linux-Notes">&#182;</a></h1><h2 id="Description">Description<a class="anchor-link" href="#Description">&#182;</a></h2>
-<pre><code>GNU/Linux notes, most of the topics included are from different exams like LPIC, RHCSA, LFCS, etc.</code></pre>
+<h2 id="Locate">Locate<a class="anchor-link" href="#Locate">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>locate grub.cfg
+</pre></div>
 
 </div>
 </div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>/boot/grub/grub.cfg
+/usr/share/doc/grub-common/examples/grub.cfg
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>whatis updatedb
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>updatedb (8)         - update a database for mlocate
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>cat /etc/updatedb.conf
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>PRUNE_BIND_MOUNTS=&#34;yes&#34;
+# PRUNENAMES=&#34;.git .bzr .hg .svn&#34;
+PRUNEPATHS=&#34;/tmp /var/spool /media /home/.ecryptfs /var/lib/schroot&#34;
+PRUNEFS=&#34;NFS nfs nfs4 rpc_pipefs afs binfmt_misc proc smbfs autofs iso9660 ncpfs coda devpts ftpfs devfs mfs shfs sysfs cifs lustre tmpfs usbfs udf fuse.glusterfs fuse.sshfs curlftpfs ecryptfs fusesmb devtmpfs&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>which locate
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>/usr/bin/locate
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ll <span class="sb">`</span>which locate<span class="sb">`</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>lrwxrwxrwx 1 root root 24 Aug  7 20:56 <span class="ansi-cyan-intense-fg ansi-bold">/usr/bin/locate</span> -&gt; <span class="ansi-black-fg ansi-yellow-bg">/etc/alternatives/locate</span>*
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ll /etc/alternatives/locate
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>lrwxrwxrwx 1 root root 16 Aug  7 20:56 <span class="ansi-cyan-intense-fg ansi-bold">/etc/alternatives/locate</span> -&gt; <span class="ansi-black-fg ansi-yellow-bg">/usr/bin/mlocate</span>*
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>whatis mlocate
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>mlocate (1)          - find files by name
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>whatis locate
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>locate (1)           - find files by name
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="TOC">TOC<a class="anchor-link" href="#TOC">&#182;</a></h2><ul>
-<li><a href="netstat, ss, nmap, nc.html">netstat, ss, nmap, nc</a>  </li>
-<li><a href="Managing logs.html">Managing logs</a>  </li>
-<li><a href="Text Processing.html">Text Processing</a>  </li>
-<li><a href="File &amp; Directories Permissions.html">File &amp; Directories Permissions</a>  </li>
-<li><a href="Archiving files.html">Archiving files</a>  </li>
-<li><a href="su, sudo, gksudo, bash startup files.html">su, sudo, gksudo, bash startup files</a>  </li>
-<li><a href="User and Groups.html">User and Groups</a>  </li>
-<li><a href="Virtualization B.html">Virtualization B</a>  </li>
-<li><a href="SED.html">SED</a>  </li>
-<li><a href="locate, find.html">locate, find</a>  </li>
-<li><a href="Bootloaders.html">Bootloaders</a>  </li>
-<li><a href="redirection, piping and tee.html">redirection, piping and tee</a>  </li>
-<li><a href="Services, runlevel and targets.html">Services, runlevel and targets</a>  </li>
-<li><a href="lsof.html">lsof</a>  </li>
-<li><a href="Shared libraries.html">Shared libraries</a>  </li>
-<li><a href="Reset root password.html">Reset root password</a>  </li>
-<li><a href="Linux file system hierarchy.html">Linux file system hierarchy</a>  </li>
-<li><a href="Recovery mode &amp; Rescue Kernel.html">Recovery mode &amp; Rescue Kernel</a>  </li>
-<li><a href="Initrd and initramfs.html">Initrd and initramfs</a>  </li>
-<li><a href="Schedule Tasks.html">Schedule Tasks</a>  </li>
-<li><a href="kmod, lsusb, lspci.html">kmod, lsusb, lspci</a>  </li>
-<li><a href="Dev, Proc,  Sysfs, Udev, dbus.html">Dev, Proc,  Sysfs, Udev, dbus</a>  </li>
-<li><a href="Process, signals.html">Process, signals</a>  </li>
-<li><a href="awk.html">awk</a>  </li>
-<li><a href="Virtualization A.html">Virtualization A</a>  </li>
-<li><a href="Nice &amp; Renice.html">Nice &amp; Renice</a>  </li>
-<li><a href="Time &amp; Localization.html">Time &amp; Localization</a>  </li>
-<li><a href="Linux boot process.html">Linux boot process</a>  </li>
-<li><a href="SSH - OpenSSH Client.html">SSH - OpenSSH Client</a>  </li>
-<li><a href="dpkg.html">dpkg</a>  </li>
-</ul>
+<h2 id="Find">Find<a class="anchor-link" href="#Find">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find -iname fhs*
+</pre></div>
 
 </div>
 </div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>./Downloads/fhs-2.3.pdf
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find -name FHS*
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find -iname FHS*
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>./Downloads/fhs-2.3.pdf
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="c1">#find -size +200M</span>
+<span class="c1">#find -inum 122223 -gid </span>
+<span class="c1">#find -atime +1 -mtime +1</span>
+<span class="c1">#find -type f # f c b l d </span>
+<span class="c1">#find /path -para</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls a/
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>10.html  8  8.html  9.html  w  x  y  z
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find a/ ! -iname <span class="s1">&#39;*.html&#39;</span> -type f
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a/8
+a/z
+a/x
+a/w
+a/y
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find a/ -iname <span class="s1">&#39;[1-9]&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a/8
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find /dev -type c <span class="p">|</span> head -5
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>/dev/watchdog0
+/dev/watchdog
+/dev/hidraw0
+/dev/vboxnetctl
+/dev/vboxdrvu
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find /dev -type c <span class="p">|</span> head
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>/dev/watchdog0
+/dev/watchdog
+/dev/hidraw0
+/dev/vboxnetctl
+/dev/vboxdrvu
+/dev/vboxdrv
+/dev/video0
+/dev/media0
+/dev/vboxusb/003/003
+/dev/vboxusb/003/002
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find /dev -type b -exec ls -lhtr <span class="o">{}</span> <span class="se">\;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>brw-rw---- 1 root disk 252, 3 Dec 24 11:39 /dev/dm-3
+brw-rw---- 1 root disk 252, 2 Dec 24 11:39 /dev/dm-2
+brw-rw---- 1 root disk 252, 1 Dec 24 11:39 /dev/dm-1
+brw-rw---- 1 root disk 252, 0 Dec 24 11:39 /dev/dm-0
+brw-rw---- 1 root disk 8, 5 Dec 24 11:39 /dev/sda5
+brw-rw---- 1 root disk 8, 2 Dec 24 11:39 /dev/sda2
+brw-rw---- 1 root disk 8, 1 Dec 24 11:39 /dev/sda1
+brw-rw----+ 1 root cdrom 11, 0 Dec 24 11:39 /dev/sr0
+brw-rw---- 1 root disk 8, 0 Dec 24 11:39 /dev/sda
+brw-rw---- 1 root disk 7, 7 Dec 24 11:39 /dev/loop7
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="c1"># Will runs the command for each file</span>
+find /dev -type f -exec <span class="nb">echo</span> <span class="o">{}</span> Milad <span class="se">\;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>/dev/shm/pulse-shm-3708256176 Milad
+/dev/shm/pulse-shm-745853968 Milad
+/dev/shm/pulse-shm-3796149152 Milad
+/dev/shm/sem.lastpassffsemaphore Milad
+/dev/shm/pulse-shm-2242611167 Milad
+/dev/shm/pulse-shm-882805694 Milad
+/dev/shm/pulse-shm-1326275543 Milad
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find /dev -name sda1 -or -name sda2
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>/dev/sda2
+/dev/sda1
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="c1"># find / -mtime +10 –mtime -20</span>
+<span class="c1"># find ~ ! -path &#39;*/\.*&#39; -perm 764 -exec chmod 664 {} \;</span>
+<span class="c1"># find ~ ! -path &#39;*/\.*&#39; -perm 764 -type f -exec chmod 664 {} \;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Important-permissions">Important permissions<a class="anchor-link" href="#Important-permissions">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="nb">cd</span> /usr/bin
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find -perm <span class="m">4000</span> <span class="c1"># exactly 4000 - having exactly a 4 and others should be 000</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find -perm -4000 -exec ls --color -l <span class="o">{}</span> <span class="se">\;</span> <span class="c1"># having 4 is necessary - others does not matter</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-rwsr-xr-x 1 root root 49584 Mar 29  2016 <span class="ansi-white-fg ansi-red-bg">./chfn</span>
+-rwsr-sr-x 1 daemon daemon 51464 Jan 15  2016 <span class="ansi-white-fg ansi-red-bg">./at</span>
+-rwsr-xr-x 1 root root 54256 Mar 29  2016 <span class="ansi-white-fg ansi-red-bg">./passwd</span>
+-rwsr-xr-x 1 root root 40432 Mar 29  2016 <span class="ansi-white-fg ansi-red-bg">./chsh</span>
+-rwsr-xr-x 1 root root 39904 Mar 29  2016 <span class="ansi-white-fg ansi-red-bg">./newgrp</span>
+-rwsr-xr-x 1 root root 75304 Mar 29  2016 <span class="ansi-white-fg ansi-red-bg">./gpasswd</span>
+-rwsr-xr-x 1 root root 23376 Jan 18  2016 <span class="ansi-white-fg ansi-red-bg">./pkexec</span>
+-rwsr-xr-x 1 root root 136808 Jan 20 19:34 <span class="ansi-white-fg ansi-red-bg">./sudo</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find -perm -6000 -exec ls --color -l <span class="o">{}</span> <span class="se">\;</span> <span class="c1"># having 4 and 2 is necessary - others does not matter</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-rwsr-sr-x 1 daemon daemon 51464 Jan 15  2016 <span class="ansi-white-fg ansi-red-bg">./at</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find -perm -2000 -exec ls --color -l <span class="o">{}</span> <span class="se">\;</span> <span class="c1"># having 2 is necessary - others does not matter</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-rwsr-sr-x 1 daemon daemon 51464 Jan 15  2016 <span class="ansi-white-fg ansi-red-bg">./at</span>
+-rwxr-sr-x 1 root tty 27368 Dec 16 19:10 <span class="ansi-black-fg ansi-yellow-bg">./wall</span>
+-rwxr-sr-x 1 root crontab 36080 Apr  6  2016 <span class="ansi-black-fg ansi-yellow-bg">./crontab</span>
+-rwxr-sr-x 1 root shadow 62336 Mar 29  2016 <span class="ansi-black-fg ansi-yellow-bg">./chage</span>
+-rwxr-sr-x 1 root mlocate 39520 Nov 18  2014 <span class="ansi-black-fg ansi-yellow-bg">./mlocate</span>
+-rwxr-sr-x 1 root ssh 358624 Aug 11  2016 <span class="ansi-black-fg ansi-yellow-bg">./ssh-agent</span>
+-rwxr-sr-x 1 root shadow 22768 Mar 29  2016 <span class="ansi-black-fg ansi-yellow-bg">./expiry</span>
+-rwxr-sr-x 1 root tty 14752 Mar  1  2016 <span class="ansi-black-fg ansi-yellow-bg">./bsd-write</span>
+-rwxr-sr-x 1 root utmp 434216 Feb  7  2016 <span class="ansi-black-fg ansi-yellow-bg">./screen</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find -perm /6000 -exec ls --color -l <span class="o">{}</span> <span class="se">\;</span> <span class="c1"># having 2 OR 4 OR both is necessary - others does not matter</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-rwsr-xr-x 1 root root 49584 Mar 29  2016 <span class="ansi-white-fg ansi-red-bg">./chfn</span>
+-rwsr-sr-x 1 daemon daemon 51464 Jan 15  2016 <span class="ansi-white-fg ansi-red-bg">./at</span>
+-rwsr-xr-x 1 root root 54256 Mar 29  2016 <span class="ansi-white-fg ansi-red-bg">./passwd</span>
+-rwxr-sr-x 1 root tty 27368 Dec 16 19:10 <span class="ansi-black-fg ansi-yellow-bg">./wall</span>
+-rwsr-xr-x 1 root root 40432 Mar 29  2016 <span class="ansi-white-fg ansi-red-bg">./chsh</span>
+-rwxr-sr-x 1 root crontab 36080 Apr  6  2016 <span class="ansi-black-fg ansi-yellow-bg">./crontab</span>
+-rwxr-sr-x 1 root shadow 62336 Mar 29  2016 <span class="ansi-black-fg ansi-yellow-bg">./chage</span>
+-rwsr-xr-x 1 root root 39904 Mar 29  2016 <span class="ansi-white-fg ansi-red-bg">./newgrp</span>
+-rwxr-sr-x 1 root mlocate 39520 Nov 18  2014 <span class="ansi-black-fg ansi-yellow-bg">./mlocate</span>
+-rwxr-sr-x 1 root ssh 358624 Aug 11  2016 <span class="ansi-black-fg ansi-yellow-bg">./ssh-agent</span>
+-rwxr-sr-x 1 root shadow 22768 Mar 29  2016 <span class="ansi-black-fg ansi-yellow-bg">./expiry</span>
+-rwsr-xr-x 1 root root 75304 Mar 29  2016 <span class="ansi-white-fg ansi-red-bg">./gpasswd</span>
+-rwsr-xr-x 1 root root 23376 Jan 18  2016 <span class="ansi-white-fg ansi-red-bg">./pkexec</span>
+-rwxr-sr-x 1 root tty 14752 Mar  1  2016 <span class="ansi-black-fg ansi-yellow-bg">./bsd-write</span>
+-rwxr-sr-x 1 root utmp 434216 Feb  7  2016 <span class="ansi-black-fg ansi-yellow-bg">./screen</span>
+-rwsr-xr-x 1 root root 136808 Jan 20 19:34 <span class="ansi-white-fg ansi-red-bg">./sudo</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find / -maxdepth <span class="m">1</span> -perm /3000 -exec ls --color -dl <span class="o">{}</span> <span class="se">\;</span> <span class="c1"># having 2 OR 1 OR both is necessary - others does not matter</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>drwxrwxrwt 12 root root 12288 Mar  5 14:45 <span class="ansi-black-fg ansi-green-bg">/tmp</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find /usr/bin/ ! -user root -perm /6000 -exec ls -l --color <span class="o">{}</span> <span class="se">\;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-rwsr-sr-x 1 daemon daemon 51464 Jan 15  2016 <span class="ansi-white-fg ansi-red-bg">/usr/bin/at</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>find /usr/local/ -nouser
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -11840,7 +12647,6 @@ div#notebook {
 <ul>
 <li>There are <code>html</code> exports of project available at: <a href="https://ravexina.github.io/linux-notes">https://ravexina.github.io/linux-notes</a>.</li>
 </ul>
-<hr>
 <h2 id="License">License<a class="anchor-link" href="#License">&#182;</a></h2><p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
 </a></p>

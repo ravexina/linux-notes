@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Ravexna's Linux Notes (LPIC, LFCS, RHCSA)</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Services, runlevel and targets</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11781,8 +11781,31 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Linux-Notes">Linux Notes<a class="anchor-link" href="#Linux-Notes">&#182;</a></h1><h2 id="Description">Description<a class="anchor-link" href="#Description">&#182;</a></h2>
-<pre><code>GNU/Linux notes, most of the topics included are from different exams like LPIC, RHCSA, LFCS, etc.</code></pre>
+<h2 id="Systemd">Systemd<a class="anchor-link" href="#Systemd">&#182;</a></h2><ul>
+<li>Purpose of an init system is:<ul>
+<li>Initialize the components that must be started after the Linux kernel is booted.</li>
+<li>Manage services and daemons at any point while the system is running.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>systemd features<ul>
+<li>Backwards compatible with SysV</li>
+<li>Parallel startup of system services at boot time,</li>
+<li>On-demand activation of daemons</li>
+<li>Dependency-based service control logic</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Units<ul>
+<li>Units are resources that systemd knows how to manage. </li>
+<li>They are categorized by the type of resource they represent.</li>
+</ul>
+</li>
+</ul>
+
+<pre><code>    - ex daemons are known as service units. *.service</code></pre>
 
 </div>
 </div>
@@ -11792,41 +11815,651 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="TOC">TOC<a class="anchor-link" href="#TOC">&#182;</a></h2><ul>
-<li><a href="netstat, ss, nmap, nc.html">netstat, ss, nmap, nc</a>  </li>
-<li><a href="Managing logs.html">Managing logs</a>  </li>
-<li><a href="Text Processing.html">Text Processing</a>  </li>
-<li><a href="File &amp; Directories Permissions.html">File &amp; Directories Permissions</a>  </li>
-<li><a href="Archiving files.html">Archiving files</a>  </li>
-<li><a href="su, sudo, gksudo, bash startup files.html">su, sudo, gksudo, bash startup files</a>  </li>
-<li><a href="User and Groups.html">User and Groups</a>  </li>
-<li><a href="Virtualization B.html">Virtualization B</a>  </li>
-<li><a href="SED.html">SED</a>  </li>
-<li><a href="locate, find.html">locate, find</a>  </li>
-<li><a href="Bootloaders.html">Bootloaders</a>  </li>
-<li><a href="redirection, piping and tee.html">redirection, piping and tee</a>  </li>
-<li><a href="Services, runlevel and targets.html">Services, runlevel and targets</a>  </li>
-<li><a href="lsof.html">lsof</a>  </li>
-<li><a href="Shared libraries.html">Shared libraries</a>  </li>
-<li><a href="Reset root password.html">Reset root password</a>  </li>
-<li><a href="Linux file system hierarchy.html">Linux file system hierarchy</a>  </li>
-<li><a href="Recovery mode &amp; Rescue Kernel.html">Recovery mode &amp; Rescue Kernel</a>  </li>
-<li><a href="Initrd and initramfs.html">Initrd and initramfs</a>  </li>
-<li><a href="Schedule Tasks.html">Schedule Tasks</a>  </li>
-<li><a href="kmod, lsusb, lspci.html">kmod, lsusb, lspci</a>  </li>
-<li><a href="Dev, Proc,  Sysfs, Udev, dbus.html">Dev, Proc,  Sysfs, Udev, dbus</a>  </li>
-<li><a href="Process, signals.html">Process, signals</a>  </li>
-<li><a href="awk.html">awk</a>  </li>
-<li><a href="Virtualization A.html">Virtualization A</a>  </li>
-<li><a href="Nice &amp; Renice.html">Nice &amp; Renice</a>  </li>
-<li><a href="Time &amp; Localization.html">Time &amp; Localization</a>  </li>
-<li><a href="Linux boot process.html">Linux boot process</a>  </li>
-<li><a href="SSH - OpenSSH Client.html">SSH - OpenSSH Client</a>  </li>
-<li><a href="dpkg.html">dpkg</a>  </li>
+<h3 id="Available-Units">Available Units<a class="anchor-link" href="#Available-Units">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="c1"># Available units</span>
+systemctl -t <span class="nb">help</span> <span class="c1"># --type help</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Available unit types:
+service
+socket
+busname
+target
+device
+mount
+automount
+swap
+timer
+path
+slice
+scope
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Different-type-of-units:">Different type of units:<a class="anchor-link" href="#Different-type-of-units:">&#182;</a></h4>
+</div>
+</div>
+</div>Target unit 	.target 	A group of systemd units.
+Service unit 	.service 	A system service.
+Automount unit 	.automount 	A file system automount point.
+Device unit 	.device 	A device file recognized by the kernel
+Mount unit 	    .mount 		A file system mount point.
+Path unit 	    .path 		A file or directory in a file system.
+Scope unit 	    .scope 		An externally created process.
+Slice unit   	.slice 		A group of hierarchically organized units that manage system processes.
+Snapshot unit 	.snapshot 	A saved state of the systemd manager.
+Socket unit 	.socket 	An inter-process communication socket.
+Swap unit 	    .swap 		A swap device or a swap file.
+Timer unit 	    .timer 		A systemd timer. 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Targets">Targets<a class="anchor-link" href="#Targets">&#182;</a></h3><p>Used to group other units together and to bring the system to certain states. (Runlevel)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Default target:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>systemctl get-default
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>graphical.target
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>set-default graphical.target
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Default target paths:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ll /etc/systemd/system/default.target
+ll /lib/systemd/system/default.target
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>lrwxrwxrwx 1 root root 36 Dec  9 03:30 <span class="ansi-cyan-intense-fg ansi-bold">/etc/systemd/system/default.target</span> -&gt; /lib/systemd/system/graphical.target
+lrwxrwxrwx 1 root root 16 Nov 25 16:27 <span class="ansi-cyan-intense-fg ansi-bold">/lib/systemd/system/default.target</span> -&gt; graphical.target
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Going into a target:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="c1"># AllowIsolate=yes (isolation must be yes)</span>
+systemctl isolate graphical.target <span class="c1"># same as: telinit runlevel</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>[ multiuser, graphical, recue, emergency, reboot, poweroff ] 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>rescue = 1 user</p>
+<blockquote><p>"rescue" is equivalent to the old runlevel 1
+everything is mounted, but no normal services are started</p>
+</blockquote>
+</li>
+<li><p>emergency = nothing but systemd</p>
+<blockquote><p>No services are started, no mount points mounted
+no sockets established, good for debugging step by step</p>
+</blockquote>
+</li>
 </ul>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>systemctl rescue <span class="c1"># like isolate rescue but sends a wall message</span>
+systemctl --no-wall rescue
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>0 runlevel0.target, poweroff.target 	Shut down and power off the system.
+1 runlevel1.target, rescue.target 	    Set up a rescue shell.
+2 runlevel2.target, multi-user.target 	Set up a non-graphical multi-user system.
+3 runlevel3.target, multi-user.target 	Set up a non-graphical multi-user system.
+4 runlevel4.target, multi-user.target 	Set up a non-graphical multi-user system.
+5 runlevel5.target, graphical.target 	Set up a graphical multi-user system.
+6 runlevel6.target, reboot.target 	    Shut down and reboot the system.
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Go-into-recovery-(rescue)-mode-by-editing-grub:">Go into recovery (rescue) mode by editing grub:<a class="anchor-link" href="#Go-into-recovery-(rescue)-mode-by-editing-grub:">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>systemd.unit<span class="o">=</span>rescue.target <span class="c1"># same as old school: 1 at the end of kernel line</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Managing-services">Managing services<a class="anchor-link" href="#Managing-services">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>systemctl start name.service
+systemctl stop name.service
+
+<span class="c1"># Stop, then start again.</span>
+systemctl restart name.service
+
+<span class="c1"># Restarts a service only if it is running.</span>
+systemctl try-restart name.service
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Reload">Reload<a class="anchor-link" href="#Reload">&#182;</a></h5><p>If the application in question is able to reload its configuration files (without restarting), you can issue the reload command to initiate that process.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="c1"># Reloads configuration.</span>
+systemctl reload name.service
+
+<span class="c1"># try to reload if can&#39;t restarts</span>
+systemctl reload-or-restart name.service
+systemctl try-reload-or-restart name.service
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Check-service-status">Check service status<a class="anchor-link" href="#Check-service-status">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>systemctl status name.service
+
+systemctl is-active name.service <span class="c1"># running</span>
+systemctl is-enabled name.service <span class="c1"># will be activated when booting</span>
+systemctl is-failed name.service <span class="c1"># tried to active but failed</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Change-service-status">Change service status<a class="anchor-link" href="#Change-service-status">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>systemctl <span class="nb">enable</span> name.service
+systemctl disable name.service
+
+<span class="c1"># combination of disable and enable and is useful to reset the symlinks</span>
+systemctl reenable name.service
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Mask-and-unmasking">Mask and unmasking<a class="anchor-link" href="#Mask-and-unmasking">&#182;</a></h4><p>you can mask any service unit to prevent it from being started manually or by another service:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="c1"># links /etc/systemd/system/name.service -&gt; /dev/null</span>
+systemctl mask name.service
+systemctl unmask name.service
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="List-units">List units<a class="anchor-link" href="#List-units">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="c1"># list (all kind of units) [loaded and active]</span>
+systemctl list-units
+
+<span class="c1"># --all = active or not (inactive, dead, not-found, etc)</span>
+
+<span class="c1"># list (all kind of units) [loaded] active or not</span>
+systemctl list-units --all
+
+<span class="c1"># list (service units) [loaded and currently active] </span>
+systemctl list-units --type<span class="o">=</span>service
+
+<span class="c1"># list (target units) [loaded] active or not </span>
+systemctl list-units --type<span class="o">=</span>target --all
+
+<span class="c1"># list (service units) [loaded but currently inactive]</span>
+<span class="c1"># if we don&#39;t use --all it&#39;s only shows active ones</span>
+systemctl list-units --all --type<span class="o">=</span>service --state<span class="o">=</span>inactive
+
+<span class="c1"># list (target units) [ltried to load but not found] </span>
+systemctl list-units --all --type<span class="o">=</span>target --state<span class="o">=</span>not-found
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>list-units only displays units that systemd has <strong>attempted to load</strong> (wanted by).<br>
+To see every available unit file including those that systemd has not attempted to load:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="c1"># list all [available] service units to see if they are enabled or not</span>
+systemctl list-unit-files --type service <span class="c1"># can be used for other units like: targets etc.</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>systemd-networkd-resolvconf-update.path    static 
+accounts-daemon.service                    enabled
+alsa-utils.service                         masked <span class="c1"># /dev/null</span>
+console-getty.service                      disabled
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>systemctl list-unit-files --state masked <span class="p">|</span> head -3
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>UNIT FILE                    STATE 
+alsa-utils.service           masked
+bootlogd.service             masked
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>static</em></strong>: unit file does not contain an "install" section. these units cannot be enabled and these are used only as a dependency of another units.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>vimcat /lib/systemd/system/systemd-networkd-resolvconf-update.path
+<span class="c1"># vimcat /lib/systemd/system/colord.service</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansi-green-fg">[Unit]
+</span><span class="ansi-yellow-fg">Description=</span><span class="ansi-white-fg">Trigger resolvconf update for networkd DNS
+</span><span class="ansi-yellow-fg">ConditionPathIsSymbolicLink=</span><span class="ansi-white-fg">/etc/resolv.conf
+</span><span class="ansi-white-fg">
+</span><span class="ansi-green-fg">[Path]
+</span><span class="ansi-yellow-fg">PathChanged=</span><span class="ansi-white-fg">/run/systemd/netif/state</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>vimcat /lib/systemd/system/accounts-daemon.service <span class="c1"># systemctl cat accounts-daemon.service</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansi-green-fg">[Unit]
+</span><span class="ansi-yellow-fg">Description=</span><span class="ansi-white-fg">Accounts Service
+</span><span class="ansi-white-fg">
+</span><span class="ansi-white-fg"># In order to avoid races with identity-providing services like SSSD or
+</span><span class="ansi-white-fg"># winbind, we need to ensure that Accounts Service starts after
+</span><span class="ansi-white-fg"># nss-user-lookup.target
+</span><span class="ansi-yellow-fg">After=</span><span class="ansi-white-fg">nss-user-lookup.target
+</span><span class="ansi-yellow-fg">Wants=</span><span class="ansi-white-fg">nss-user-lookup.target
+</span><span class="ansi-white-fg">
+</span><span class="ansi-green-fg">[Service]
+</span><span class="ansi-yellow-fg">Type=</span><span class="ansi-white-fg">dbus
+</span><span class="ansi-yellow-fg">BusName=</span><span class="ansi-white-fg">org.freedesktop.Accounts
+</span><span class="ansi-yellow-fg">ExecStart=</span><span class="ansi-white-fg">/usr/lib/accountsservice/accounts-daemon
+</span><span class="ansi-white-fg">
+</span><span class="ansi-green-fg">[Install]
+</span><span class="ansi-white-fg"># We pull this in by graphical.target instead of waiting for the bus
+</span><span class="ansi-white-fg"># activation, to speed things up a little: gdm uses this anyway so it is nice
+</span><span class="ansi-white-fg"># if it is already around when gdm wants to use it and doesn&#39;t have to wait for
+</span><span class="ansi-white-fg"># it.
+</span><span class="ansi-yellow-fg">WantedBy=</span><span class="ansi-white-fg">graphical.target</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="List-dependecies">List dependecies<a class="anchor-link" href="#List-dependecies">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>systemctl list-dependencies multiuser.target
+systemctl list-dependencies --after *.service/target
+systemctl list-dependencies --before *.service/target
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Other-functionalities">Other functionalities<a class="anchor-link" href="#Other-functionalities">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="c1"># Alias</span>
+systemctl show multi-user.target -p Names
+ ⁠
+<span class="c1"># Controlling systemd on a Remote Machine</span>
+systemctl --host user_name@host_name <span class="nb">command</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -11840,7 +12473,6 @@ div#notebook {
 <ul>
 <li>There are <code>html</code> exports of project available at: <a href="https://ravexina.github.io/linux-notes">https://ravexina.github.io/linux-notes</a>.</li>
 </ul>
-<hr>
 <h2 id="License">License<a class="anchor-link" href="#License">&#182;</a></h2><p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
 </a></p>

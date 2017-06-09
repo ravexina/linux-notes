@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Ravexna's Linux Notes (LPIC, LFCS, RHCSA)</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Dev, Proc,  Sysfs, Udev, dbus</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11781,52 +11781,1445 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Linux-Notes">Linux Notes<a class="anchor-link" href="#Linux-Notes">&#182;</a></h1><h2 id="Description">Description<a class="anchor-link" href="#Description">&#182;</a></h2>
-<pre><code>GNU/Linux notes, most of the topics included are from different exams like LPIC, RHCSA, LFCS, etc.</code></pre>
+<h1 id="dubs---procfs---sysfs---/dev/---udev">dubs - procfs - sysfs - /dev/ - udev<a class="anchor-link" href="#dubs---procfs---sysfs---/dev/---udev">&#182;</a></h1><h4 id="How-linux-deal-with-devices-:)">How linux deal with devices :)<a class="anchor-link" href="#How-linux-deal-with-devices-:)">&#182;</a></h4><h2 id="/dev">/dev<a class="anchor-link" href="#/dev">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls /dev/sda* -lFhart
+<span class="c1"># Major: Driver </span>
+<span class="c1"># Minor: Kernel uses to determine exactly which device refered to</span>
+</pre></div>
 
 </div>
 </div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>brw-rw---- 1 root disk 8, 0 Dec 26 19:25 <span class="ansi-yellow-intense-fg ansi-black-bg ansi-bold">/dev/sda</span>
+brw-rw---- 1 root disk 8, 2 Dec 26 19:25 <span class="ansi-yellow-intense-fg ansi-black-bg ansi-bold">/dev/sda2</span>
+brw-rw---- 1 root disk 8, 5 Dec 26 19:25 <span class="ansi-yellow-intense-fg ansi-black-bg ansi-bold">/dev/sda5</span>
+brw-rw---- 1 root disk 8, 1 Dec 26 19:25 <span class="ansi-yellow-intense-fg ansi-black-bg ansi-bold">/dev/sda1</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls /dev/dv* -l
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>lrwxrwxrwx 1 root root 3 Dec 26 19:25 <span class="ansi-cyan-intense-fg ansi-bold">/dev/dvd</span> -&gt; <span class="ansi-yellow-intense-fg ansi-black-bg ansi-bold">sr0</span>
+lrwxrwxrwx 1 root root 3 Dec 26 19:25 <span class="ansi-cyan-intense-fg ansi-bold">/dev/dvdrw</span> -&gt; <span class="ansi-yellow-intense-fg ansi-black-bg ansi-bold">sr0</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>fdisk -l /dev/sda
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls -lF /dev/<span class="o">{</span>random,urandom,zero,null<span class="o">}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>crw-rw-rw- 1 root root 1, 3 Dec 26 19:25 <span class="ansi-yellow-intense-fg ansi-black-bg ansi-bold">/dev/null</span>
+crw-rw-rw- 1 root root 1, 8 Dec 26 19:25 <span class="ansi-yellow-intense-fg ansi-black-bg ansi-bold">/dev/random</span>
+crw-rw-rw- 1 root root 1, 9 Dec 26 19:25 <span class="ansi-yellow-intense-fg ansi-black-bg ansi-bold">/dev/urandom</span>
+crw-rw-rw- 1 root root 1, 5 Dec 26 19:25 <span class="ansi-yellow-intense-fg ansi-black-bg ansi-bold">/dev/zero</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="TOC">TOC<a class="anchor-link" href="#TOC">&#182;</a></h2><ul>
-<li><a href="netstat, ss, nmap, nc.html">netstat, ss, nmap, nc</a>  </li>
-<li><a href="Managing logs.html">Managing logs</a>  </li>
-<li><a href="Text Processing.html">Text Processing</a>  </li>
-<li><a href="File &amp; Directories Permissions.html">File &amp; Directories Permissions</a>  </li>
-<li><a href="Archiving files.html">Archiving files</a>  </li>
-<li><a href="su, sudo, gksudo, bash startup files.html">su, sudo, gksudo, bash startup files</a>  </li>
-<li><a href="User and Groups.html">User and Groups</a>  </li>
-<li><a href="Virtualization B.html">Virtualization B</a>  </li>
-<li><a href="SED.html">SED</a>  </li>
-<li><a href="locate, find.html">locate, find</a>  </li>
-<li><a href="Bootloaders.html">Bootloaders</a>  </li>
-<li><a href="redirection, piping and tee.html">redirection, piping and tee</a>  </li>
-<li><a href="Services, runlevel and targets.html">Services, runlevel and targets</a>  </li>
-<li><a href="lsof.html">lsof</a>  </li>
-<li><a href="Shared libraries.html">Shared libraries</a>  </li>
-<li><a href="Reset root password.html">Reset root password</a>  </li>
-<li><a href="Linux file system hierarchy.html">Linux file system hierarchy</a>  </li>
-<li><a href="Recovery mode &amp; Rescue Kernel.html">Recovery mode &amp; Rescue Kernel</a>  </li>
-<li><a href="Initrd and initramfs.html">Initrd and initramfs</a>  </li>
-<li><a href="Schedule Tasks.html">Schedule Tasks</a>  </li>
-<li><a href="kmod, lsusb, lspci.html">kmod, lsusb, lspci</a>  </li>
-<li><a href="Dev, Proc,  Sysfs, Udev, dbus.html">Dev, Proc,  Sysfs, Udev, dbus</a>  </li>
-<li><a href="Process, signals.html">Process, signals</a>  </li>
-<li><a href="awk.html">awk</a>  </li>
-<li><a href="Virtualization A.html">Virtualization A</a>  </li>
-<li><a href="Nice &amp; Renice.html">Nice &amp; Renice</a>  </li>
-<li><a href="Time &amp; Localization.html">Time &amp; Localization</a>  </li>
-<li><a href="Linux boot process.html">Linux boot process</a>  </li>
-<li><a href="SSH - OpenSSH Client.html">SSH - OpenSSH Client</a>  </li>
-<li><a href="dpkg.html">dpkg</a>  </li>
+<h2 id="ProcFS-(Proc-FileSystem)">ProcFS (Proc FileSystem)<a class="anchor-link" href="#ProcFS-(Proc-FileSystem)">&#182;</a></h2><p>REMEMBER: Evertrhing is a file (sockets, process, devices, etc)</p>
+<ul>
+<li>Virtual filesystem, things are in memory</li>
+<li>Contains process information (so other programs can refrence and use)<ul>
+<li>What is the process </li>
+<li>where is the executable</li>
+<li>how much memory is using</li>
+<li>where is the path</li>
+<li>what memory is available</li>
+</ul>
+</li>
+</ul>
+<p>It was awesome so other developer start using it to save information like cpu, memory, kernel configuration.<br>
+Until kernel 2.5 camedout ... (sysfs)</p>
+<p><strong><em>Hint:</em></strong> When you read from /proc, the kernel generates content on the fly. There is no hard drive involved.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls /proc
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansi-blue-intense-fg ansi-bold">1</span>     <span class="ansi-blue-intense-fg ansi-bold">156</span>   <span class="ansi-blue-intense-fg ansi-bold">169</span>   <span class="ansi-blue-intense-fg ansi-bold">27</span>    <span class="ansi-blue-intense-fg ansi-bold">4081</span>  <span class="ansi-blue-intense-fg ansi-bold">5386</span>  <span class="ansi-blue-intense-fg ansi-bold">78</span>         consoles     <span class="ansi-cyan-intense-fg ansi-bold">net</span>
+<span class="ansi-blue-intense-fg ansi-bold">10</span>    <span class="ansi-blue-intense-fg ansi-bold">1578</span>  <span class="ansi-blue-intense-fg ansi-bold">17</span>    <span class="ansi-blue-intense-fg ansi-bold">271</span>   <span class="ansi-blue-intense-fg ansi-bold">411</span>   <span class="ansi-blue-intense-fg ansi-bold">5432</span>  <span class="ansi-blue-intense-fg ansi-bold">79</span>         cpuinfo      pagetypeinfo
+<span class="ansi-blue-intense-fg ansi-bold">1009</span>  <span class="ansi-blue-intense-fg ansi-bold">1579</span>  <span class="ansi-blue-intense-fg ansi-bold">1708</span>  <span class="ansi-blue-intense-fg ansi-bold">28</span>    <span class="ansi-blue-intense-fg ansi-bold">445</span>   <span class="ansi-blue-intense-fg ansi-bold">5541</span>  <span class="ansi-blue-intense-fg ansi-bold">8</span>          crypto       partitions
+<span class="ansi-blue-intense-fg ansi-bold">1012</span>  <span class="ansi-blue-intense-fg ansi-bold">1583</span>  <span class="ansi-blue-intense-fg ansi-bold">1711</span>  <span class="ansi-blue-intense-fg ansi-bold">29</span>    <span class="ansi-blue-intense-fg ansi-bold">4491</span>  <span class="ansi-blue-intense-fg ansi-bold">5542</span>  <span class="ansi-blue-intense-fg ansi-bold">80</span>         devices      sched_debug
+<span class="ansi-blue-intense-fg ansi-bold">1014</span>  <span class="ansi-blue-intense-fg ansi-bold">1588</span>  <span class="ansi-blue-intense-fg ansi-bold">1716</span>  <span class="ansi-blue-intense-fg ansi-bold">3</span>     <span class="ansi-blue-intense-fg ansi-bold">45</span>    <span class="ansi-blue-intense-fg ansi-bold">5576</span>  <span class="ansi-blue-intense-fg ansi-bold">81</span>         diskstats    schedstat
+<span class="ansi-blue-intense-fg ansi-bold">1016</span>  <span class="ansi-blue-intense-fg ansi-bold">159</span>   <span class="ansi-blue-intense-fg ansi-bold">1717</span>  <span class="ansi-blue-intense-fg ansi-bold">30</span>    <span class="ansi-blue-intense-fg ansi-bold">4521</span>  <span class="ansi-blue-intense-fg ansi-bold">5631</span>  <span class="ansi-blue-intense-fg ansi-bold">82</span>         dma          <span class="ansi-blue-intense-fg ansi-bold">scsi</span>
+<span class="ansi-blue-intense-fg ansi-bold">1020</span>  <span class="ansi-blue-intense-fg ansi-bold">1591</span>  <span class="ansi-blue-intense-fg ansi-bold">175</span>   <span class="ansi-blue-intense-fg ansi-bold">302</span>   <span class="ansi-blue-intense-fg ansi-bold">46</span>    <span class="ansi-blue-intense-fg ansi-bold">565</span>   <span class="ansi-blue-intense-fg ansi-bold">83</span>         <span class="ansi-blue-intense-fg ansi-bold">driver</span>       <span class="ansi-cyan-intense-fg ansi-bold">self</span>
+<span class="ansi-blue-intense-fg ansi-bold">1023</span>  <span class="ansi-blue-intense-fg ansi-bold">1592</span>  <span class="ansi-blue-intense-fg ansi-bold">18</span>    <span class="ansi-blue-intense-fg ansi-bold">303</span>   <span class="ansi-blue-intense-fg ansi-bold">461</span>   <span class="ansi-blue-intense-fg ansi-bold">5678</span>  <span class="ansi-blue-intense-fg ansi-bold">84</span>         execdomains  slabinfo
+<span class="ansi-blue-intense-fg ansi-bold">1072</span>  <span class="ansi-blue-intense-fg ansi-bold">1593</span>  <span class="ansi-blue-intense-fg ansi-bold">180</span>   <span class="ansi-blue-intense-fg ansi-bold">304</span>   <span class="ansi-blue-intense-fg ansi-bold">47</span>    <span class="ansi-blue-intense-fg ansi-bold">5775</span>  <span class="ansi-blue-intense-fg ansi-bold">85</span>         fb           softirqs
+<span class="ansi-blue-intense-fg ansi-bold">109</span>   <span class="ansi-blue-intense-fg ansi-bold">1599</span>  <span class="ansi-blue-intense-fg ansi-bold">182</span>   <span class="ansi-blue-intense-fg ansi-bold">305</span>   <span class="ansi-blue-intense-fg ansi-bold">48</span>    <span class="ansi-blue-intense-fg ansi-bold">5786</span>  <span class="ansi-blue-intense-fg ansi-bold">86</span>         filesystems  stat
+<span class="ansi-blue-intense-fg ansi-bold">11</span>    <span class="ansi-blue-intense-fg ansi-bold">16</span>    <span class="ansi-blue-intense-fg ansi-bold">185</span>   <span class="ansi-blue-intense-fg ansi-bold">306</span>   <span class="ansi-blue-intense-fg ansi-bold">4885</span>  <span class="ansi-blue-intense-fg ansi-bold">5802</span>  <span class="ansi-blue-intense-fg ansi-bold">864</span>        <span class="ansi-blue-intense-fg ansi-bold">fs</span>           swaps
+<span class="ansi-blue-intense-fg ansi-bold">110</span>   <span class="ansi-blue-intense-fg ansi-bold">160</span>   <span class="ansi-blue-intense-fg ansi-bold">187</span>   <span class="ansi-blue-intense-fg ansi-bold">31</span>    <span class="ansi-blue-intense-fg ansi-bold">4891</span>  <span class="ansi-blue-intense-fg ansi-bold">5808</span>  <span class="ansi-blue-intense-fg ansi-bold">865</span>        interrupts   <span class="ansi-blue-intense-fg ansi-bold">sys</span>
+<span class="ansi-blue-intense-fg ansi-bold">1134</span>  <span class="ansi-blue-intense-fg ansi-bold">161</span>   <span class="ansi-blue-intense-fg ansi-bold">2</span>     <span class="ansi-blue-intense-fg ansi-bold">315</span>   <span class="ansi-blue-intense-fg ansi-bold">4895</span>  <span class="ansi-blue-intense-fg ansi-bold">5826</span>  <span class="ansi-blue-intense-fg ansi-bold">866</span>        iomem        sysrq-trigger
+<span class="ansi-blue-intense-fg ansi-bold">1141</span>  <span class="ansi-blue-intense-fg ansi-bold">1613</span>  <span class="ansi-blue-intense-fg ansi-bold">20</span>    <span class="ansi-blue-intense-fg ansi-bold">318</span>   <span class="ansi-blue-intense-fg ansi-bold">4896</span>  <span class="ansi-blue-intense-fg ansi-bold">602</span>   <span class="ansi-blue-intense-fg ansi-bold">87</span>         ioports      <span class="ansi-blue-intense-fg ansi-bold">sysvipc</span>
+<span class="ansi-blue-intense-fg ansi-bold">1149</span>  <span class="ansi-blue-intense-fg ansi-bold">1616</span>  <span class="ansi-blue-intense-fg ansi-bold">2041</span>  <span class="ansi-blue-intense-fg ansi-bold">32</span>    <span class="ansi-blue-intense-fg ansi-bold">4897</span>  <span class="ansi-blue-intense-fg ansi-bold">64</span>    <span class="ansi-blue-intense-fg ansi-bold">88</span>         <span class="ansi-blue-intense-fg ansi-bold">irq</span>          <span class="ansi-cyan-intense-fg ansi-bold">thread-self</span>
+<span class="ansi-blue-intense-fg ansi-bold">1174</span>  <span class="ansi-blue-intense-fg ansi-bold">1619</span>  <span class="ansi-blue-intense-fg ansi-bold">2045</span>  <span class="ansi-blue-intense-fg ansi-bold">320</span>   <span class="ansi-blue-intense-fg ansi-bold">4898</span>  <span class="ansi-blue-intense-fg ansi-bold">643</span>   <span class="ansi-blue-intense-fg ansi-bold">89</span>         kallsyms     timer_list
+<span class="ansi-blue-intense-fg ansi-bold">1187</span>  <span class="ansi-blue-intense-fg ansi-bold">162</span>   <span class="ansi-blue-intense-fg ansi-bold">2048</span>  <span class="ansi-blue-intense-fg ansi-bold">322</span>   <span class="ansi-blue-intense-fg ansi-bold">4922</span>  <span class="ansi-blue-intense-fg ansi-bold">65</span>    <span class="ansi-blue-intense-fg ansi-bold">9</span>          kcore        timer_stats
+<span class="ansi-blue-intense-fg ansi-bold">1197</span>  <span class="ansi-blue-intense-fg ansi-bold">1622</span>  <span class="ansi-blue-intense-fg ansi-bold">2057</span>  <span class="ansi-blue-intense-fg ansi-bold">327</span>   <span class="ansi-blue-intense-fg ansi-bold">4986</span>  <span class="ansi-blue-intense-fg ansi-bold">68</span>    <span class="ansi-blue-intense-fg ansi-bold">90</span>         keys         <span class="ansi-blue-intense-fg ansi-bold">tty</span>
+<span class="ansi-blue-intense-fg ansi-bold">12</span>    <span class="ansi-blue-intense-fg ansi-bold">1631</span>  <span class="ansi-blue-intense-fg ansi-bold">2062</span>  <span class="ansi-blue-intense-fg ansi-bold">329</span>   <span class="ansi-blue-intense-fg ansi-bold">5</span>     <span class="ansi-blue-intense-fg ansi-bold">69</span>    <span class="ansi-blue-intense-fg ansi-bold">91</span>         key-users    uptime
+<span class="ansi-blue-intense-fg ansi-bold">13</span>    <span class="ansi-blue-intense-fg ansi-bold">1632</span>  <span class="ansi-blue-intense-fg ansi-bold">2067</span>  <span class="ansi-blue-intense-fg ansi-bold">33</span>    <span class="ansi-blue-intense-fg ansi-bold">5072</span>  <span class="ansi-blue-intense-fg ansi-bold">7</span>     <span class="ansi-blue-intense-fg ansi-bold">96</span>         kmsg         version
+<span class="ansi-blue-intense-fg ansi-bold">1368</span>  <span class="ansi-blue-intense-fg ansi-bold">1633</span>  <span class="ansi-blue-intense-fg ansi-bold">2073</span>  <span class="ansi-blue-intense-fg ansi-bold">34</span>    <span class="ansi-blue-intense-fg ansi-bold">5086</span>  <span class="ansi-blue-intense-fg ansi-bold">70</span>    <span class="ansi-blue-intense-fg ansi-bold">969</span>        kpagecgroup  version_signature
+<span class="ansi-blue-intense-fg ansi-bold">1374</span>  <span class="ansi-blue-intense-fg ansi-bold">164</span>   <span class="ansi-blue-intense-fg ansi-bold">2078</span>  <span class="ansi-blue-intense-fg ansi-bold">35</span>    <span class="ansi-blue-intense-fg ansi-bold">5089</span>  <span class="ansi-blue-intense-fg ansi-bold">71</span>    <span class="ansi-blue-intense-fg ansi-bold">990</span>        kpagecount   vmallocinfo
+<span class="ansi-blue-intense-fg ansi-bold">1378</span>  <span class="ansi-blue-intense-fg ansi-bold">1648</span>  <span class="ansi-blue-intense-fg ansi-bold">2082</span>  <span class="ansi-blue-intense-fg ansi-bold">36</span>    <span class="ansi-blue-intense-fg ansi-bold">5097</span>  <span class="ansi-blue-intense-fg ansi-bold">72</span>    <span class="ansi-blue-intense-fg ansi-bold">992</span>        kpageflags   vmstat
+<span class="ansi-blue-intense-fg ansi-bold">149</span>   <span class="ansi-blue-intense-fg ansi-bold">165</span>   <span class="ansi-blue-intense-fg ansi-bold">21</span>    <span class="ansi-blue-intense-fg ansi-bold">360</span>   <span class="ansi-blue-intense-fg ansi-bold">5100</span>  <span class="ansi-blue-intense-fg ansi-bold">726</span>   <span class="ansi-blue-intense-fg ansi-bold">994</span>        loadavg      zoneinfo
+<span class="ansi-blue-intense-fg ansi-bold">15</span>    <span class="ansi-blue-intense-fg ansi-bold">1653</span>  <span class="ansi-blue-intense-fg ansi-bold">2109</span>  <span class="ansi-blue-intense-fg ansi-bold">361</span>   <span class="ansi-blue-intense-fg ansi-bold">5174</span>  <span class="ansi-blue-intense-fg ansi-bold">73</span>    <span class="ansi-blue-intense-fg ansi-bold">996</span>        locks
+<span class="ansi-blue-intense-fg ansi-bold">151</span>   <span class="ansi-blue-intense-fg ansi-bold">1654</span>  <span class="ansi-blue-intense-fg ansi-bold">22</span>    <span class="ansi-blue-intense-fg ansi-bold">38</span>    <span class="ansi-blue-intense-fg ansi-bold">5242</span>  <span class="ansi-blue-intense-fg ansi-bold">738</span>   <span class="ansi-blue-intense-fg ansi-bold">acpi</span>       mdstat
+<span class="ansi-blue-intense-fg ansi-bold">1535</span>  <span class="ansi-blue-intense-fg ansi-bold">166</span>   <span class="ansi-blue-intense-fg ansi-bold">23</span>    <span class="ansi-blue-intense-fg ansi-bold">3820</span>  <span class="ansi-blue-intense-fg ansi-bold">5281</span>  <span class="ansi-blue-intense-fg ansi-bold">74</span>    <span class="ansi-blue-intense-fg ansi-bold">asound</span>     meminfo
+<span class="ansi-blue-intense-fg ansi-bold">1537</span>  <span class="ansi-blue-intense-fg ansi-bold">1663</span>  <span class="ansi-blue-intense-fg ansi-bold">25</span>    <span class="ansi-blue-intense-fg ansi-bold">39</span>    <span class="ansi-blue-intense-fg ansi-bold">5289</span>  <span class="ansi-blue-intense-fg ansi-bold">745</span>   buddyinfo  misc
+<span class="ansi-blue-intense-fg ansi-bold">154</span>   <span class="ansi-blue-intense-fg ansi-bold">167</span>   <span class="ansi-blue-intense-fg ansi-bold">250</span>   <span class="ansi-blue-intense-fg ansi-bold">3923</span>  <span class="ansi-blue-intense-fg ansi-bold">5362</span>  <span class="ansi-blue-intense-fg ansi-bold">75</span>    <span class="ansi-blue-intense-fg ansi-bold">bus</span>        modules
+<span class="ansi-blue-intense-fg ansi-bold">1544</span>  <span class="ansi-blue-intense-fg ansi-bold">168</span>   <span class="ansi-blue-intense-fg ansi-bold">251</span>   <span class="ansi-blue-intense-fg ansi-bold">398</span>   <span class="ansi-blue-intense-fg ansi-bold">5371</span>  <span class="ansi-blue-intense-fg ansi-bold">76</span>    cgroups    <span class="ansi-cyan-intense-fg ansi-bold">mounts</span>
+<span class="ansi-blue-intense-fg ansi-bold">1556</span>  <span class="ansi-blue-intense-fg ansi-bold">1681</span>  <span class="ansi-blue-intense-fg ansi-bold">26</span>    <span class="ansi-blue-intense-fg ansi-bold">40</span>    <span class="ansi-blue-intense-fg ansi-bold">5384</span>  <span class="ansi-blue-intense-fg ansi-bold">77</span>    cmdline    mtrr
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>cat /proc/cpuinfo
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Core(TM) i3-4000M CPU @ 2.40GHz
+stepping	: 3
+microcode	: 0x17
+cpu MHz		: 2399.906
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts
+bugs		:
+bogomips	: 4788.97
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Core(TM) i3-4000M CPU @ 2.40GHz
+stepping	: 3
+microcode	: 0x17
+cpu MHz		: 2400.000
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts
+bugs		:
+bogomips	: 4788.97
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Core(TM) i3-4000M CPU @ 2.40GHz
+stepping	: 3
+microcode	: 0x17
+cpu MHz		: 2400.000
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts
+bugs		:
+bogomips	: 4788.97
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Core(TM) i3-4000M CPU @ 2.40GHz
+stepping	: 3
+microcode	: 0x17
+cpu MHz		: 2400.000
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts
+bugs		:
+bogomips	: 4788.97
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>lscpu
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                4
+On-line CPU(s) list:   0-3
+Thread(s) per core:    2
+Core(s) per socket:    2
+Socket(s):             1
+NUMA node(s):          1
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 60
+Model name:            Intel(R) Core(TM) i3-4000M CPU @ 2.40GHz
+Stepping:              3
+CPU MHz:               2400.093
+CPU max MHz:           2400.0000
+CPU min MHz:           800.0000
+BogoMIPS:              4788.97
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              3072K
+NUMA node0 CPU(s):     0-3
+Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>cat /proc/meminfo
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>MemTotal:        3757972 kB
+MemFree:         1275708 kB
+MemAvailable:    2273804 kB
+Buffers:          100916 kB
+Cached:          1202024 kB
+SwapCached:            0 kB
+Active:          1590552 kB
+Inactive:         673400 kB
+Active(anon):     963476 kB
+Inactive(anon):   150016 kB
+Active(file):     627076 kB
+Inactive(file):   523384 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:       7798780 kB
+SwapFree:        7798780 kB
+Dirty:                76 kB
+Writeback:             0 kB
+AnonPages:        960912 kB
+Mapped:           471636 kB
+Shmem:            152488 kB
+Slab:             130072 kB
+SReclaimable:      99272 kB
+SUnreclaim:        30800 kB
+KernelStack:        6688 kB
+PageTables:        24224 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     9677764 kB
+Committed_AS:    3127500 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:    299008 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      140148 kB
+DirectMap2M:     3762176 kB
+DirectMap1G:           0 kB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>cat /proc/version
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Linux version 4.4.0-57-generic (buildd@lgw01-54) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4) ) #78-Ubuntu SMP Fri Dec 9 23:50:32 UTC 2016
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>uname -s
+uname -r
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Linux
+4.4.0-57-generic
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>cat /proc/sys/kernel/version
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>#78-Ubuntu SMP Fri Dec 9 23:50:32 UTC 2016
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>cat /proc/cmdline
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>BOOT_IMAGE=/vmlinuz-4.4.0-57-generic root=/dev/mapper/Raven--vg-root ro
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>cat /proc/uptime
+<span class="c1">#&quot;uptime  idle&quot;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>6557.44 24346.54
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="nb">cd</span> /proc
+ls <span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*/ -d
+<span class="c1"># Currently running process</span>
+<span class="c1"># Htop, Top</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansi-blue-intense-fg ansi-bold">1/</span>      <span class="ansi-blue-intense-fg ansi-bold">10736/</span>  <span class="ansi-blue-intense-fg ansi-bold">15/</span>    <span class="ansi-blue-intense-fg ansi-bold">161/</span>   <span class="ansi-blue-intense-fg ansi-bold">17/</span>    <span class="ansi-blue-intense-fg ansi-bold">2073/</span>  <span class="ansi-blue-intense-fg ansi-bold">304/</span>  <span class="ansi-blue-intense-fg ansi-bold">398/</span>   <span class="ansi-blue-intense-fg ansi-bold">5362/</span>  <span class="ansi-blue-intense-fg ansi-bold">72/</span>    <span class="ansi-blue-intense-fg ansi-bold">84/</span>
+<span class="ansi-blue-intense-fg ansi-bold">10/</span>     <span class="ansi-blue-intense-fg ansi-bold">10759/</span>  <span class="ansi-blue-intense-fg ansi-bold">151/</span>   <span class="ansi-blue-intense-fg ansi-bold">1613/</span>  <span class="ansi-blue-intense-fg ansi-bold">1708/</span>  <span class="ansi-blue-intense-fg ansi-bold">2078/</span>  <span class="ansi-blue-intense-fg ansi-bold">305/</span>  <span class="ansi-blue-intense-fg ansi-bold">40/</span>    <span class="ansi-blue-intense-fg ansi-bold">5384/</span>  <span class="ansi-blue-intense-fg ansi-bold">726/</span>   <span class="ansi-blue-intense-fg ansi-bold">85/</span>
+<span class="ansi-blue-intense-fg ansi-bold">1009/</span>   <span class="ansi-blue-intense-fg ansi-bold">10768/</span>  <span class="ansi-blue-intense-fg ansi-bold">1535/</span>  <span class="ansi-blue-intense-fg ansi-bold">1616/</span>  <span class="ansi-blue-intense-fg ansi-bold">1711/</span>  <span class="ansi-blue-intense-fg ansi-bold">2082/</span>  <span class="ansi-blue-intense-fg ansi-bold">306/</span>  <span class="ansi-blue-intense-fg ansi-bold">4081/</span>  <span class="ansi-blue-intense-fg ansi-bold">5386/</span>  <span class="ansi-blue-intense-fg ansi-bold">73/</span>    <span class="ansi-blue-intense-fg ansi-bold">86/</span>
+<span class="ansi-blue-intense-fg ansi-bold">1012/</span>   <span class="ansi-blue-intense-fg ansi-bold">10792/</span>  <span class="ansi-blue-intense-fg ansi-bold">1537/</span>  <span class="ansi-blue-intense-fg ansi-bold">1619/</span>  <span class="ansi-blue-intense-fg ansi-bold">1716/</span>  <span class="ansi-blue-intense-fg ansi-bold">21/</span>    <span class="ansi-blue-intense-fg ansi-bold">31/</span>   <span class="ansi-blue-intense-fg ansi-bold">411/</span>   <span class="ansi-blue-intense-fg ansi-bold">5541/</span>  <span class="ansi-blue-intense-fg ansi-bold">738/</span>   <span class="ansi-blue-intense-fg ansi-bold">864/</span>
+<span class="ansi-blue-intense-fg ansi-bold">1014/</span>   <span class="ansi-blue-intense-fg ansi-bold">109/</span>    <span class="ansi-blue-intense-fg ansi-bold">154/</span>   <span class="ansi-blue-intense-fg ansi-bold">162/</span>   <span class="ansi-blue-intense-fg ansi-bold">1717/</span>  <span class="ansi-blue-intense-fg ansi-bold">2109/</span>  <span class="ansi-blue-intense-fg ansi-bold">315/</span>  <span class="ansi-blue-intense-fg ansi-bold">445/</span>   <span class="ansi-blue-intense-fg ansi-bold">5631/</span>  <span class="ansi-blue-intense-fg ansi-bold">74/</span>    <span class="ansi-blue-intense-fg ansi-bold">865/</span>
+<span class="ansi-blue-intense-fg ansi-bold">1016/</span>   <span class="ansi-blue-intense-fg ansi-bold">11/</span>     <span class="ansi-blue-intense-fg ansi-bold">1544/</span>  <span class="ansi-blue-intense-fg ansi-bold">1622/</span>  <span class="ansi-blue-intense-fg ansi-bold">175/</span>   <span class="ansi-blue-intense-fg ansi-bold">22/</span>    <span class="ansi-blue-intense-fg ansi-bold">318/</span>  <span class="ansi-blue-intense-fg ansi-bold">4491/</span>  <span class="ansi-blue-intense-fg ansi-bold">565/</span>   <span class="ansi-blue-intense-fg ansi-bold">745/</span>   <span class="ansi-blue-intense-fg ansi-bold">866/</span>
+<span class="ansi-blue-intense-fg ansi-bold">1020/</span>   <span class="ansi-blue-intense-fg ansi-bold">110/</span>    <span class="ansi-blue-intense-fg ansi-bold">1556/</span>  <span class="ansi-blue-intense-fg ansi-bold">1631/</span>  <span class="ansi-blue-intense-fg ansi-bold">18/</span>    <span class="ansi-blue-intense-fg ansi-bold">23/</span>    <span class="ansi-blue-intense-fg ansi-bold">32/</span>   <span class="ansi-blue-intense-fg ansi-bold">45/</span>    <span class="ansi-blue-intense-fg ansi-bold">5678/</span>  <span class="ansi-blue-intense-fg ansi-bold">75/</span>    <span class="ansi-blue-intense-fg ansi-bold">87/</span>
+<span class="ansi-blue-intense-fg ansi-bold">1023/</span>   <span class="ansi-blue-intense-fg ansi-bold">1134/</span>   <span class="ansi-blue-intense-fg ansi-bold">156/</span>   <span class="ansi-blue-intense-fg ansi-bold">1632/</span>  <span class="ansi-blue-intense-fg ansi-bold">180/</span>   <span class="ansi-blue-intense-fg ansi-bold">25/</span>    <span class="ansi-blue-intense-fg ansi-bold">320/</span>  <span class="ansi-blue-intense-fg ansi-bold">4521/</span>  <span class="ansi-blue-intense-fg ansi-bold">5802/</span>  <span class="ansi-blue-intense-fg ansi-bold">76/</span>    <span class="ansi-blue-intense-fg ansi-bold">88/</span>
+<span class="ansi-blue-intense-fg ansi-bold">10355/</span>  <span class="ansi-blue-intense-fg ansi-bold">1141/</span>   <span class="ansi-blue-intense-fg ansi-bold">1578/</span>  <span class="ansi-blue-intense-fg ansi-bold">1633/</span>  <span class="ansi-blue-intense-fg ansi-bold">182/</span>   <span class="ansi-blue-intense-fg ansi-bold">250/</span>   <span class="ansi-blue-intense-fg ansi-bold">322/</span>  <span class="ansi-blue-intense-fg ansi-bold">46/</span>    <span class="ansi-blue-intense-fg ansi-bold">5808/</span>  <span class="ansi-blue-intense-fg ansi-bold">77/</span>    <span class="ansi-blue-intense-fg ansi-bold">89/</span>
+<span class="ansi-blue-intense-fg ansi-bold">10377/</span>  <span class="ansi-blue-intense-fg ansi-bold">1149/</span>   <span class="ansi-blue-intense-fg ansi-bold">1579/</span>  <span class="ansi-blue-intense-fg ansi-bold">164/</span>   <span class="ansi-blue-intense-fg ansi-bold">185/</span>   <span class="ansi-blue-intense-fg ansi-bold">251/</span>   <span class="ansi-blue-intense-fg ansi-bold">327/</span>  <span class="ansi-blue-intense-fg ansi-bold">461/</span>   <span class="ansi-blue-intense-fg ansi-bold">602/</span>   <span class="ansi-blue-intense-fg ansi-bold">78/</span>    <span class="ansi-blue-intense-fg ansi-bold">9/</span>
+<span class="ansi-blue-intense-fg ansi-bold">10490/</span>  <span class="ansi-blue-intense-fg ansi-bold">1174/</span>   <span class="ansi-blue-intense-fg ansi-bold">1583/</span>  <span class="ansi-blue-intense-fg ansi-bold">1648/</span>  <span class="ansi-blue-intense-fg ansi-bold">187/</span>   <span class="ansi-blue-intense-fg ansi-bold">26/</span>    <span class="ansi-blue-intense-fg ansi-bold">329/</span>  <span class="ansi-blue-intense-fg ansi-bold">47/</span>    <span class="ansi-blue-intense-fg ansi-bold">64/</span>    <span class="ansi-blue-intense-fg ansi-bold">7860/</span>  <span class="ansi-blue-intense-fg ansi-bold">90/</span>
+<span class="ansi-blue-intense-fg ansi-bold">10500/</span>  <span class="ansi-blue-intense-fg ansi-bold">1187/</span>   <span class="ansi-blue-intense-fg ansi-bold">1588/</span>  <span class="ansi-blue-intense-fg ansi-bold">165/</span>   <span class="ansi-blue-intense-fg ansi-bold">2/</span>     <span class="ansi-blue-intense-fg ansi-bold">27/</span>    <span class="ansi-blue-intense-fg ansi-bold">33/</span>   <span class="ansi-blue-intense-fg ansi-bold">48/</span>    <span class="ansi-blue-intense-fg ansi-bold">643/</span>   <span class="ansi-blue-intense-fg ansi-bold">7861/</span>  <span class="ansi-blue-intense-fg ansi-bold">91/</span>
+<span class="ansi-blue-intense-fg ansi-bold">10530/</span>  <span class="ansi-blue-intense-fg ansi-bold">1197/</span>   <span class="ansi-blue-intense-fg ansi-bold">159/</span>   <span class="ansi-blue-intense-fg ansi-bold">1653/</span>  <span class="ansi-blue-intense-fg ansi-bold">20/</span>    <span class="ansi-blue-intense-fg ansi-bold">271/</span>   <span class="ansi-blue-intense-fg ansi-bold">34/</span>   <span class="ansi-blue-intense-fg ansi-bold">4891/</span>  <span class="ansi-blue-intense-fg ansi-bold">65/</span>    <span class="ansi-blue-intense-fg ansi-bold">7863/</span>  <span class="ansi-blue-intense-fg ansi-bold">96/</span>
+<span class="ansi-blue-intense-fg ansi-bold">10583/</span>  <span class="ansi-blue-intense-fg ansi-bold">12/</span>     <span class="ansi-blue-intense-fg ansi-bold">1591/</span>  <span class="ansi-blue-intense-fg ansi-bold">1654/</span>  <span class="ansi-blue-intense-fg ansi-bold">2041/</span>  <span class="ansi-blue-intense-fg ansi-bold">28/</span>    <span class="ansi-blue-intense-fg ansi-bold">35/</span>   <span class="ansi-blue-intense-fg ansi-bold">4895/</span>  <span class="ansi-blue-intense-fg ansi-bold">6705/</span>  <span class="ansi-blue-intense-fg ansi-bold">79/</span>    <span class="ansi-blue-intense-fg ansi-bold">969/</span>
+<span class="ansi-blue-intense-fg ansi-bold">10616/</span>  <span class="ansi-blue-intense-fg ansi-bold">13/</span>     <span class="ansi-blue-intense-fg ansi-bold">1592/</span>  <span class="ansi-blue-intense-fg ansi-bold">166/</span>   <span class="ansi-blue-intense-fg ansi-bold">2045/</span>  <span class="ansi-blue-intense-fg ansi-bold">29/</span>    <span class="ansi-blue-intense-fg ansi-bold">36/</span>   <span class="ansi-blue-intense-fg ansi-bold">4896/</span>  <span class="ansi-blue-intense-fg ansi-bold">68/</span>    <span class="ansi-blue-intense-fg ansi-bold">8/</span>     <span class="ansi-blue-intense-fg ansi-bold">990/</span>
+<span class="ansi-blue-intense-fg ansi-bold">10620/</span>  <span class="ansi-blue-intense-fg ansi-bold">1368/</span>   <span class="ansi-blue-intense-fg ansi-bold">1593/</span>  <span class="ansi-blue-intense-fg ansi-bold">1663/</span>  <span class="ansi-blue-intense-fg ansi-bold">2048/</span>  <span class="ansi-blue-intense-fg ansi-bold">3/</span>     <span class="ansi-blue-intense-fg ansi-bold">360/</span>  <span class="ansi-blue-intense-fg ansi-bold">4897/</span>  <span class="ansi-blue-intense-fg ansi-bold">69/</span>    <span class="ansi-blue-intense-fg ansi-bold">80/</span>    <span class="ansi-blue-intense-fg ansi-bold">992/</span>
+<span class="ansi-blue-intense-fg ansi-bold">10651/</span>  <span class="ansi-blue-intense-fg ansi-bold">1374/</span>   <span class="ansi-blue-intense-fg ansi-bold">1599/</span>  <span class="ansi-blue-intense-fg ansi-bold">167/</span>   <span class="ansi-blue-intense-fg ansi-bold">2057/</span>  <span class="ansi-blue-intense-fg ansi-bold">30/</span>    <span class="ansi-blue-intense-fg ansi-bold">361/</span>  <span class="ansi-blue-intense-fg ansi-bold">4898/</span>  <span class="ansi-blue-intense-fg ansi-bold">7/</span>     <span class="ansi-blue-intense-fg ansi-bold">81/</span>    <span class="ansi-blue-intense-fg ansi-bold">994/</span>
+<span class="ansi-blue-intense-fg ansi-bold">1072/</span>   <span class="ansi-blue-intense-fg ansi-bold">1378/</span>   <span class="ansi-blue-intense-fg ansi-bold">16/</span>    <span class="ansi-blue-intense-fg ansi-bold">168/</span>   <span class="ansi-blue-intense-fg ansi-bold">2062/</span>  <span class="ansi-blue-intense-fg ansi-bold">302/</span>   <span class="ansi-blue-intense-fg ansi-bold">38/</span>   <span class="ansi-blue-intense-fg ansi-bold">5/</span>     <span class="ansi-blue-intense-fg ansi-bold">70/</span>    <span class="ansi-blue-intense-fg ansi-bold">82/</span>    <span class="ansi-blue-intense-fg ansi-bold">996/</span>
+<span class="ansi-blue-intense-fg ansi-bold">10724/</span>  <span class="ansi-blue-intense-fg ansi-bold">149/</span>    <span class="ansi-blue-intense-fg ansi-bold">160/</span>   <span class="ansi-blue-intense-fg ansi-bold">169/</span>   <span class="ansi-blue-intense-fg ansi-bold">2067/</span>  <span class="ansi-blue-intense-fg ansi-bold">303/</span>   <span class="ansi-blue-intense-fg ansi-bold">39/</span>   <span class="ansi-blue-intense-fg ansi-bold">5289/</span>  <span class="ansi-blue-intense-fg ansi-bold">71/</span>    <span class="ansi-blue-intense-fg ansi-bold">83/</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>yes <span class="p">&amp;</span>&gt; /dev/null <span class="p">&amp;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] 10806
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>pidof yes
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>10806
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls -d <span class="sb">`</span>pidof yes<span class="sb">`</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansi-blue-intense-fg ansi-bold">10806</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="nb">cd</span> <span class="m">10806</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansi-blue-intense-fg ansi-bold">attr</span>             cpuset   limits      <span class="ansi-blue-intense-fg ansi-bold">net</span>            projid_map  stat
+autogroup        <span class="ansi-cyan-intense-fg ansi-bold">cwd</span>      loginuid    <span class="ansi-blue-intense-fg ansi-bold">ns</span>             <span class="ansi-cyan-intense-fg ansi-bold">root</span>        statm
+auxv             environ  <span class="ansi-blue-intense-fg ansi-bold">map_files</span>   numa_maps      sched       status
+cgroup           <span class="ansi-cyan-intense-fg ansi-bold">exe</span>      maps        oom_adj        schedstat   syscall
+clear_refs       <span class="ansi-blue-intense-fg ansi-bold">fd</span>       mem         oom_score      sessionid   <span class="ansi-blue-intense-fg ansi-bold">task</span>
+cmdline          <span class="ansi-blue-intense-fg ansi-bold">fdinfo</span>   mountinfo   oom_score_adj  setgroups   timers
+comm             gid_map  mounts      pagemap        smaps       uid_map
+coredump_filter  io       mountstats  personality    stack       wchan
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls -lh cwd
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>lrwxrwxrwx 1 milad milad 0 Dec 26 23:37 <span class="ansi-cyan-intense-fg ansi-bold">cwd</span> -&gt; <span class="ansi-blue-intense-fg ansi-bold">/proc</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls -lh exe
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>lrwxrwxrwx 1 milad milad 0 Dec 26 23:37 <span class="ansi-cyan-intense-fg ansi-bold">exe</span> -&gt; <span class="ansi-green-intense-fg ansi-bold">/usr/bin/yes</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>cat status <span class="p">|</span> head -6
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Name:	yes
+State:	R (running)
+Tgid:	10806
+Ngid:	0
+Pid:	10806
+PPid:	10768
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="c1"># A test for cwd in procfs</span>
+<span class="nb">cd</span> ~
+mkdir webserver
+dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>file.zip <span class="nv">bs</span><span class="o">=</span>1M <span class="nv">count</span><span class="o">=</span><span class="m">100</span>
+python -m SimpleHTTPServer
+<span class="nb">cd</span> ~/Downloads
+wget --limit-rate<span class="o">=</span>1k http://0.0.0.0:8000/file.zip -O dl.zip
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="nb">cd</span> /proc
+<span class="nb">cd</span> <span class="sb">`</span>pidof wget<span class="sb">`</span>
+ls -l cwd
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>arp
+<span class="c1"># makes details more readable (converts hex)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.1.1              ether   ac:9e:17:52:3f:c4   C                     enp3s0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ip n
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>192.168.1.1 dev enp3s0 lladdr ac:9e:17:52:3f:c4 STALE
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="nb">cd</span> /proc/net
+cat arp
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>IP address       HW type     Flags       HW address            Mask     Device
+192.168.1.1      0x1         0x2         ac:9e:17:52:3f:c4     *        enp3s0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls -ld /proc/net
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>lrwxrwxrwx 1 root root 8 Dec 26 23:51 <span class="ansi-cyan-intense-fg ansi-bold">/proc/net</span> -&gt; <span class="ansi-blue-intense-fg ansi-bold">self/net</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls -ld /proc/self
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>lrwxrwxrwx 1 root root 0 Dec 26 19:25 <span class="ansi-cyan-intense-fg ansi-bold">/proc/self</span> -&gt; <span class="ansi-blue-intense-fg ansi-bold">10966</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls -ld /proc/self
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>lrwxrwxrwx 1 root root 0 Dec 26 19:25 <span class="ansi-cyan-intense-fg ansi-bold">/proc/self</span> -&gt; <span class="ansi-blue-intense-fg ansi-bold">10967</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="nb">cd</span> /proc/net
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="nb">pwd</span>
+<span class="nb">pwd</span> -P
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>/proc/net
+/proc/10942/net
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="nb">echo</span> <span class="nv">$$</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>10942
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>pidof -s bash
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>10942
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="nb">type</span> <span class="nb">cd</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>cd is a shell builtin
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="nb">help</span> <span class="nb">cd</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="SYSFS">SYSFS<a class="anchor-link" href="#SYSFS">&#182;</a></h2><h3 id="Kernel-2.5-SysFs-introduced">Kernel 2.5 SysFs introduced<a class="anchor-link" href="#Kernel-2.5-SysFs-introduced">&#182;</a></h3><ul>
+<li>To contain information about system (dev, etc)</li>
+<li>Pluged devices</li>
+<li>Memory space address or memory interrupt</li>
+<li>Configuration files</li>
+<li>What brand</li>
+</ul>
+<ul>
+<li>Mindfulness so: More organized.</li>
+<li>Procfs still contains old stuff and are valid</li>
 </ul>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls /sys
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansi-blue-intense-fg ansi-bold">block</span>  <span class="ansi-blue-intense-fg ansi-bold">class</span>  <span class="ansi-blue-intense-fg ansi-bold">devices</span>   <span class="ansi-blue-intense-fg ansi-bold">fs</span>          <span class="ansi-blue-intense-fg ansi-bold">kernel</span>  <span class="ansi-blue-intense-fg ansi-bold">power</span>
+<span class="ansi-blue-intense-fg ansi-bold">bus</span>    <span class="ansi-blue-intense-fg ansi-bold">dev</span>    <span class="ansi-blue-intense-fg ansi-bold">firmware</span>  <span class="ansi-blue-intense-fg ansi-bold">hypervisor</span>  <span class="ansi-blue-intense-fg ansi-bold">module</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ls /sys/dev/char /sys/dev/block
+<span class="c1"># Major:Minor</span>
+<span class="c1"># Driver:Which Device Exactly</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>/sys/dev/block:
+<span class="ansi-cyan-intense-fg ansi-bold">1:0</span>   <span class="ansi-cyan-intense-fg ansi-bold">11:0</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:13</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:2</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:5</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:8</span>    <span class="ansi-cyan-intense-fg ansi-bold">252:1</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:0</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:3</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:6</span>  <span class="ansi-cyan-intense-fg ansi-bold">8:1</span>
+<span class="ansi-cyan-intense-fg ansi-bold">1:1</span>   <span class="ansi-cyan-intense-fg ansi-bold">1:11</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:14</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:3</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:6</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:9</span>    <span class="ansi-cyan-intense-fg ansi-bold">252:2</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:1</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:4</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:7</span>  <span class="ansi-cyan-intense-fg ansi-bold">8:2</span>
+<span class="ansi-cyan-intense-fg ansi-bold">1:10</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:12</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:15</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:4</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:7</span>  <span class="ansi-cyan-intense-fg ansi-bold">252:0</span>  <span class="ansi-cyan-intense-fg ansi-bold">252:3</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:2</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:5</span>  <span class="ansi-cyan-intense-fg ansi-bold">8:0</span>  <span class="ansi-cyan-intense-fg ansi-bold">8:5</span>
+
+/sys/dev/char:
+<span class="ansi-cyan-intense-fg ansi-bold">10:1</span>    <span class="ansi-cyan-intense-fg ansi-bold">10:58</span>   <span class="ansi-cyan-intense-fg ansi-bold">1:3</span>    <span class="ansi-cyan-intense-fg ansi-bold">1:8</span>      <span class="ansi-cyan-intense-fg ansi-bold">248:0</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:20</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:39</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:57</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:75</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:93</span>   <span class="ansi-cyan-intense-fg ansi-bold">7:6</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:130</span>  <span class="ansi-cyan-intense-fg ansi-bold">10:59</span>   <span class="ansi-cyan-intense-fg ansi-bold">13:32</span>  <span class="ansi-cyan-intense-fg ansi-bold">189:0</span>    <span class="ansi-cyan-intense-fg ansi-bold">248:1</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:21</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:4</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:58</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:76</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:94</span>   <span class="ansi-cyan-intense-fg ansi-bold">81:0</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:144</span>  <span class="ansi-cyan-intense-fg ansi-bold">10:60</span>   <span class="ansi-cyan-intense-fg ansi-bold">13:33</span>  <span class="ansi-cyan-intense-fg ansi-bold">189:1</span>    <span class="ansi-cyan-intense-fg ansi-bold">249:0</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:22</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:40</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:59</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:77</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:95</span>   <span class="ansi-cyan-intense-fg ansi-bold">89:0</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:183</span>  <span class="ansi-cyan-intense-fg ansi-bold">10:61</span>   <span class="ansi-cyan-intense-fg ansi-bold">13:63</span>  <span class="ansi-cyan-intense-fg ansi-bold">189:128</span>  <span class="ansi-cyan-intense-fg ansi-bold">249:1</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:23</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:41</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:6</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:78</span>  <span class="ansi-cyan-intense-fg ansi-bold">5:0</span>    <span class="ansi-cyan-intense-fg ansi-bold">89:1</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:184</span>  <span class="ansi-cyan-intense-fg ansi-bold">10:62</span>   <span class="ansi-cyan-intense-fg ansi-bold">13:64</span>  <span class="ansi-cyan-intense-fg ansi-bold">189:129</span>  <span class="ansi-cyan-intense-fg ansi-bold">250:0</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:24</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:42</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:60</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:79</span>  <span class="ansi-cyan-intense-fg ansi-bold">5:1</span>    <span class="ansi-cyan-intense-fg ansi-bold">89:2</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:200</span>  <span class="ansi-cyan-intense-fg ansi-bold">10:63</span>   <span class="ansi-cyan-intense-fg ansi-bold">13:65</span>  <span class="ansi-cyan-intense-fg ansi-bold">189:256</span>  <span class="ansi-cyan-intense-fg ansi-bold">251:0</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:25</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:43</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:61</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:8</span>   <span class="ansi-cyan-intense-fg ansi-bold">5:2</span>    <span class="ansi-cyan-intense-fg ansi-bold">89:3</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:223</span>  <span class="ansi-cyan-intense-fg ansi-bold">108:0</span>   <span class="ansi-cyan-intense-fg ansi-bold">13:66</span>  <span class="ansi-cyan-intense-fg ansi-bold">189:257</span>  <span class="ansi-cyan-intense-fg ansi-bold">29:0</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:26</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:44</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:62</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:80</span>  <span class="ansi-cyan-intense-fg ansi-bold">5:3</span>    <span class="ansi-cyan-intense-fg ansi-bold">89:4</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:227</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:1</span>     <span class="ansi-cyan-intense-fg ansi-bold">13:67</span>  <span class="ansi-cyan-intense-fg ansi-bold">189:384</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:0</span>    <span class="ansi-cyan-intense-fg ansi-bold">4:27</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:45</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:63</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:81</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:0</span>    <span class="ansi-cyan-intense-fg ansi-bold">89:5</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:228</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:11</span>    <span class="ansi-cyan-intense-fg ansi-bold">13:68</span>  <span class="ansi-cyan-intense-fg ansi-bold">1:9</span>      <span class="ansi-cyan-intense-fg ansi-bold">4:1</span>    <span class="ansi-cyan-intense-fg ansi-bold">4:28</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:46</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:64</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:82</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:1</span>    <span class="ansi-cyan-intense-fg ansi-bold">89:6</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:229</span>  <span class="ansi-cyan-intense-fg ansi-bold">116:1</span>   <span class="ansi-cyan-intense-fg ansi-bold">13:69</span>  <span class="ansi-cyan-intense-fg ansi-bold">202:0</span>    <span class="ansi-cyan-intense-fg ansi-bold">4:10</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:29</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:47</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:65</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:83</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:128</span>  <span class="ansi-cyan-intense-fg ansi-bold">89:7</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:231</span>  <span class="ansi-cyan-intense-fg ansi-bold">116:10</span>  <span class="ansi-cyan-intense-fg ansi-bold">13:70</span>  <span class="ansi-cyan-intense-fg ansi-bold">202:1</span>    <span class="ansi-cyan-intense-fg ansi-bold">4:11</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:3</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:48</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:66</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:84</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:129</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:232</span>  <span class="ansi-cyan-intense-fg ansi-bold">116:2</span>   <span class="ansi-cyan-intense-fg ansi-bold">13:71</span>  <span class="ansi-cyan-intense-fg ansi-bold">202:2</span>    <span class="ansi-cyan-intense-fg ansi-bold">4:12</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:30</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:49</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:67</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:85</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:130</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:235</span>  <span class="ansi-cyan-intense-fg ansi-bold">116:3</span>   <span class="ansi-cyan-intense-fg ansi-bold">13:72</span>  <span class="ansi-cyan-intense-fg ansi-bold">202:3</span>    <span class="ansi-cyan-intense-fg ansi-bold">4:13</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:31</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:5</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:68</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:86</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:131</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:236</span>  <span class="ansi-cyan-intense-fg ansi-bold">116:33</span>  <span class="ansi-cyan-intense-fg ansi-bold">13:73</span>  <span class="ansi-cyan-intense-fg ansi-bold">21:0</span>     <span class="ansi-cyan-intense-fg ansi-bold">4:14</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:32</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:50</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:69</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:87</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:132</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:237</span>  <span class="ansi-cyan-intense-fg ansi-bold">116:4</span>   <span class="ansi-cyan-intense-fg ansi-bold">13:74</span>  <span class="ansi-cyan-intense-fg ansi-bold">21:1</span>     <span class="ansi-cyan-intense-fg ansi-bold">4:15</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:33</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:51</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:7</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:88</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:133</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:53</span>   <span class="ansi-cyan-intense-fg ansi-bold">116:5</span>   <span class="ansi-cyan-intense-fg ansi-bold">13:75</span>  <span class="ansi-cyan-intense-fg ansi-bold">226:0</span>    <span class="ansi-cyan-intense-fg ansi-bold">4:16</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:34</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:52</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:70</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:89</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:134</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:54</span>   <span class="ansi-cyan-intense-fg ansi-bold">116:6</span>   <span class="ansi-cyan-intense-fg ansi-bold">13:76</span>  <span class="ansi-cyan-intense-fg ansi-bold">226:128</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:17</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:35</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:53</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:71</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:9</span>   <span class="ansi-cyan-intense-fg ansi-bold">7:2</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:55</span>   <span class="ansi-cyan-intense-fg ansi-bold">116:7</span>   <span class="ansi-cyan-intense-fg ansi-bold">1:4</span>    <span class="ansi-cyan-intense-fg ansi-bold">226:64</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:18</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:36</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:54</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:72</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:90</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:3</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:56</span>   <span class="ansi-cyan-intense-fg ansi-bold">116:8</span>   <span class="ansi-cyan-intense-fg ansi-bold">1:5</span>    <span class="ansi-cyan-intense-fg ansi-bold">246:0</span>    <span class="ansi-cyan-intense-fg ansi-bold">4:19</span>   <span class="ansi-cyan-intense-fg ansi-bold">4:37</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:55</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:73</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:91</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:4</span>
+<span class="ansi-cyan-intense-fg ansi-bold">10:57</span>   <span class="ansi-cyan-intense-fg ansi-bold">116:9</span>   <span class="ansi-cyan-intense-fg ansi-bold">1:7</span>    <span class="ansi-cyan-intense-fg ansi-bold">247:0</span>    <span class="ansi-cyan-intense-fg ansi-bold">4:2</span>    <span class="ansi-cyan-intense-fg ansi-bold">4:38</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:56</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:74</span>  <span class="ansi-cyan-intense-fg ansi-bold">4:92</span>  <span class="ansi-cyan-intense-fg ansi-bold">7:5</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="UDEV">UDEV<a class="anchor-link" href="#UDEV">&#182;</a></h2><h3 id="kernel-2.6">kernel 2.6<a class="anchor-link" href="#kernel-2.6">&#182;</a></h3><ul>
+<li>is a device manager</li>
+<li>successor of devfsd</li>
+<li>manages device nodes in the /dev</li>
+<li>handle all user space events  while hardware devices are added</li>
+</ul>
+<p>Because of good organization by sysfs udev introduced</p>
+<ul>
+<li>Populates devices in /dev directory </li>
+<li>By looking at sysfs</li>
+</ul>
+<p>BEFORE UDEV: /dev exists but it was handeling by static links to thinks like:
+while there first pluged in then unplug but device still is there</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>whatis udev
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>udev (7)             - Dynamic device management
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="DBUS">DBUS<a class="anchor-link" href="#DBUS">&#182;</a></h2><p>[inter-process communication]<br>
+D-Bus is a message bus system, a simple way for applications to talk to one another.</p>
+<p>With udev devices (/dev) are handled dynamicly and in a standard way</p>
+<p>dbus:</p>
+<ul>
+<li>read system informations from /dev</li>
+<li>tells the program about devices with signals</li>
+<li>programs does not have to look in:<ul>
+<li>procfs, sysfs, /dev specifically #No hard code, do only your Job</li>
+</ul>
+</li>
+</ul>
+<p>Plug device =&gt;
+dbus signals to DE -&gt;
+DE Knows about new device connected to system
+D-Bus helps coordinate process lifecycle;</p>
+<p><img src="img/Processes_with_D-Bus.svg" style="display:inline;width: 300px;"/>
+<img src="img/Processes_without_D-Bus.svg"  style="display:inline;width: 300px;"/></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span><span class="c1"># dbus-launch (1)      - Utility to start a message bus from a shell script</span>
+<span class="c1"># .xinitrc</span>
+<span class="nb">exec</span> dbus-launch --sh-syntax --exit-with-session ssh-agent openbox-session
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -11840,7 +13233,6 @@ div#notebook {
 <ul>
 <li>There are <code>html</code> exports of project available at: <a href="https://ravexina.github.io/linux-notes">https://ravexina.github.io/linux-notes</a>.</li>
 </ul>
-<hr>
 <h2 id="License">License<a class="anchor-link" href="#License">&#182;</a></h2><p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
 </a></p>

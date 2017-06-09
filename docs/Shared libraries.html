@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Ravexna's Linux Notes (LPIC, LFCS, RHCSA)</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Shared libraries</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11781,8 +11781,189 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Linux-Notes">Linux Notes<a class="anchor-link" href="#Linux-Notes">&#182;</a></h1><h2 id="Description">Description<a class="anchor-link" href="#Description">&#182;</a></h2>
-<pre><code>GNU/Linux notes, most of the topics included are from different exams like LPIC, RHCSA, LFCS, etc.</code></pre>
+<h2 id="Shared-libraries">Shared libraries<a class="anchor-link" href="#Shared-libraries">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ldd /bin/sed
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>	linux-vdso.so.1 =&gt;  (0x00007fff0e3d3000)
+	libselinux.so.1 =&gt; /lib/x86_64-linux-gnu/libselinux.so.1 (0x00007f1e5b2a6000)
+	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f1e5aedd000)
+	libpcre.so.3 =&gt; /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007f1e5ac6c000)
+	libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f1e5aa68000)
+	/lib64/ld-linux-x86-64.so.2 (0x000055c05c594000)
+	libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f1e5a84b000)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ldd /bin/grep
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>	linux-vdso.so.1 =&gt;  (0x00007fff6d679000)
+	libpcre.so.3 =&gt; /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007fb2a15aa000)
+	libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fb2a13a6000)
+	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fb2a0fdc000)
+	libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fb2a0dbf000)
+	/lib64/ld-linux-x86-64.so.2 (0x0000565096858000)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>whatis pmap
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>pmap (1)             - report memory map of a process
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>pmap <span class="nv">$$</span> <span class="p">|</span> grep -o <span class="s2">&quot;lib.*\.so&quot;</span> <span class="p">|</span> sort <span class="p">|</span> uniq
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>libc-2.23.so
+libdl-2.23.so
+libnsl-2.23.so
+libnss_compat-2.23.so
+libnss_files-2.23.so
+libnss_nis-2.23.so
+libtinfo.so
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Config file:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>cat /etc/ld.so.conf
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>include /etc/ld.so.conf.d/*.conf
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Cache: <strong>/etc/ld.so.cache</strong></p>
 
 </div>
 </div>
@@ -11792,42 +11973,49 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="TOC">TOC<a class="anchor-link" href="#TOC">&#182;</a></h2><ul>
-<li><a href="netstat, ss, nmap, nc.html">netstat, ss, nmap, nc</a>  </li>
-<li><a href="Managing logs.html">Managing logs</a>  </li>
-<li><a href="Text Processing.html">Text Processing</a>  </li>
-<li><a href="File &amp; Directories Permissions.html">File &amp; Directories Permissions</a>  </li>
-<li><a href="Archiving files.html">Archiving files</a>  </li>
-<li><a href="su, sudo, gksudo, bash startup files.html">su, sudo, gksudo, bash startup files</a>  </li>
-<li><a href="User and Groups.html">User and Groups</a>  </li>
-<li><a href="Virtualization B.html">Virtualization B</a>  </li>
-<li><a href="SED.html">SED</a>  </li>
-<li><a href="locate, find.html">locate, find</a>  </li>
-<li><a href="Bootloaders.html">Bootloaders</a>  </li>
-<li><a href="redirection, piping and tee.html">redirection, piping and tee</a>  </li>
-<li><a href="Services, runlevel and targets.html">Services, runlevel and targets</a>  </li>
-<li><a href="lsof.html">lsof</a>  </li>
-<li><a href="Shared libraries.html">Shared libraries</a>  </li>
-<li><a href="Reset root password.html">Reset root password</a>  </li>
-<li><a href="Linux file system hierarchy.html">Linux file system hierarchy</a>  </li>
-<li><a href="Recovery mode &amp; Rescue Kernel.html">Recovery mode &amp; Rescue Kernel</a>  </li>
-<li><a href="Initrd and initramfs.html">Initrd and initramfs</a>  </li>
-<li><a href="Schedule Tasks.html">Schedule Tasks</a>  </li>
-<li><a href="kmod, lsusb, lspci.html">kmod, lsusb, lspci</a>  </li>
-<li><a href="Dev, Proc,  Sysfs, Udev, dbus.html">Dev, Proc,  Sysfs, Udev, dbus</a>  </li>
-<li><a href="Process, signals.html">Process, signals</a>  </li>
-<li><a href="awk.html">awk</a>  </li>
-<li><a href="Virtualization A.html">Virtualization A</a>  </li>
-<li><a href="Nice &amp; Renice.html">Nice &amp; Renice</a>  </li>
-<li><a href="Time &amp; Localization.html">Time &amp; Localization</a>  </li>
-<li><a href="Linux boot process.html">Linux boot process</a>  </li>
-<li><a href="SSH - OpenSSH Client.html">SSH - OpenSSH Client</a>  </li>
-<li><a href="dpkg.html">dpkg</a>  </li>
-</ul>
+<p>Show cache:</p>
 
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ldconfig -p <span class="p">|</span> head
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>999 libs found in cache `/etc/ld.so.cache&#39;
+	libzvbi.so.0 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libzvbi.so.0
+	libzvbi-chains.so.0 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libzvbi-chains.so.0
+	libzmq.so.5 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libzmq.so.5
+	libzltext.so.0.13 (libc6,x86-64) =&gt; /usr/lib/libzltext.so.0.13
+	libzlcore.so.0.13 (libc6,x86-64) =&gt; /usr/lib/libzlcore.so.0.13
+	libzeitgeist-2.0.so.0 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libzeitgeist-2.0.so.0
+	libz.so.1 (libc6,x86-64) =&gt; /lib/x86_64-linux-gnu/libz.so.1
+	libyelp.so.0 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libyelp.so.0
+	libyaml-0.so.2 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libyaml-0.so.2
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>sudo ldconfig
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11840,7 +12028,6 @@ div#notebook {
 <ul>
 <li>There are <code>html</code> exports of project available at: <a href="https://ravexina.github.io/linux-notes">https://ravexina.github.io/linux-notes</a>.</li>
 </ul>
-<hr>
 <h2 id="License">License<a class="anchor-link" href="#License">&#182;</a></h2><p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
 </a></p>

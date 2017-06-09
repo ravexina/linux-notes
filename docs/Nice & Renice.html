@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Ravexna's Linux Notes (LPIC, LFCS, RHCSA)</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Nice & Renice</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11781,52 +11781,164 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Linux-Notes">Linux Notes<a class="anchor-link" href="#Linux-Notes">&#182;</a></h1><h2 id="Description">Description<a class="anchor-link" href="#Description">&#182;</a></h2>
-<pre><code>GNU/Linux notes, most of the topics included are from different exams like LPIC, RHCSA, LFCS, etc.</code></pre>
+<h2 id="Nice">Nice<a class="anchor-link" href="#Nice">&#182;</a></h2><p>The lower the level The higher the priority<br>
+The higher the level The lower the priority</p>
+<p>Default is: 0<br>
+Range: -20 to 19</p>
+<p>nice value is a user-space and priority<br>
+PR is the process's actual priority that use by Linux kernel.</p>
+<p>In linux system priorities are 0 to 139<br>
+In which 0 to 99 for real time and 100 to 139 for users.
+Relation between nice value and priority is : PR = 20 + NI</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="TOC">TOC<a class="anchor-link" href="#TOC">&#182;</a></h2><ul>
-<li><a href="netstat, ss, nmap, nc.html">netstat, ss, nmap, nc</a>  </li>
-<li><a href="Managing logs.html">Managing logs</a>  </li>
-<li><a href="Text Processing.html">Text Processing</a>  </li>
-<li><a href="File &amp; Directories Permissions.html">File &amp; Directories Permissions</a>  </li>
-<li><a href="Archiving files.html">Archiving files</a>  </li>
-<li><a href="su, sudo, gksudo, bash startup files.html">su, sudo, gksudo, bash startup files</a>  </li>
-<li><a href="User and Groups.html">User and Groups</a>  </li>
-<li><a href="Virtualization B.html">Virtualization B</a>  </li>
-<li><a href="SED.html">SED</a>  </li>
-<li><a href="locate, find.html">locate, find</a>  </li>
-<li><a href="Bootloaders.html">Bootloaders</a>  </li>
-<li><a href="redirection, piping and tee.html">redirection, piping and tee</a>  </li>
-<li><a href="Services, runlevel and targets.html">Services, runlevel and targets</a>  </li>
-<li><a href="lsof.html">lsof</a>  </li>
-<li><a href="Shared libraries.html">Shared libraries</a>  </li>
-<li><a href="Reset root password.html">Reset root password</a>  </li>
-<li><a href="Linux file system hierarchy.html">Linux file system hierarchy</a>  </li>
-<li><a href="Recovery mode &amp; Rescue Kernel.html">Recovery mode &amp; Rescue Kernel</a>  </li>
-<li><a href="Initrd and initramfs.html">Initrd and initramfs</a>  </li>
-<li><a href="Schedule Tasks.html">Schedule Tasks</a>  </li>
-<li><a href="kmod, lsusb, lspci.html">kmod, lsusb, lspci</a>  </li>
-<li><a href="Dev, Proc,  Sysfs, Udev, dbus.html">Dev, Proc,  Sysfs, Udev, dbus</a>  </li>
-<li><a href="Process, signals.html">Process, signals</a>  </li>
-<li><a href="awk.html">awk</a>  </li>
-<li><a href="Virtualization A.html">Virtualization A</a>  </li>
-<li><a href="Nice &amp; Renice.html">Nice &amp; Renice</a>  </li>
-<li><a href="Time &amp; Localization.html">Time &amp; Localization</a>  </li>
-<li><a href="Linux boot process.html">Linux boot process</a>  </li>
-<li><a href="SSH - OpenSSH Client.html">SSH - OpenSSH Client</a>  </li>
-<li><a href="dpkg.html">dpkg</a>  </li>
-</ul>
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>nice -n <span class="m">10</span> bash
+</pre></div>
 
 </div>
 </div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ps -o pid,comm,nice
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  PID COMMAND          NI
+  993 bash              0
+ 1846 ps                0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>renice <span class="m">10</span> <span class="m">993</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>993 (process ID) old priority 10, new priority 10
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>renice -n <span class="m">10</span> -p <span class="m">993</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>993 (process ID) old priority 10, new priority 10
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>ps -o pid,comm,nice
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  PID COMMAND          NI
+  993 bash             10
+ 2441 ps               10
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>renice -n <span class="m">10</span> <span class="sb">`</span>pidof chromium-browser<span class="sb">`</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -11840,7 +11952,6 @@ div#notebook {
 <ul>
 <li>There are <code>html</code> exports of project available at: <a href="https://ravexina.github.io/linux-notes">https://ravexina.github.io/linux-notes</a>.</li>
 </ul>
-<hr>
 <h2 id="License">License<a class="anchor-link" href="#License">&#182;</a></h2><p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
 </a></p>
