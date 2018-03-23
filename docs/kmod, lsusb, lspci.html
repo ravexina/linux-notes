@@ -11729,9 +11729,7 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}
-
-@media print {
+}@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11752,7 +11750,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11776,8 +11774,7 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11786,8 +11783,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11814,7 +11810,9 @@ lsmod <span class="p">|</span> head
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Module                  Size  Used by
@@ -11852,7 +11850,9 @@ vboxdrv               454656  3 vboxnetadp,vboxnetflt,vboxpci
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre><span class="ansi-red-intense-fg ansi-bold">vbox</span>pci 24576 0 - Live 0x0000000000000000 (OE)
@@ -11884,7 +11884,9 @@ vboxdrv               454656  3 vboxnetadp,vboxnetflt,vboxpci
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre><span class="ansi-red-intense-fg ansi-bold">vboxpci</span>                24576  0
@@ -11945,7 +11947,9 @@ modinfo vboxpci
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>filename:       /lib/modules/4.4.0-57-generic/updates/dkms/vboxpci.ko
@@ -11996,7 +12000,9 @@ modprobe --show-depends vboxpci
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>insmod /lib/modules/4.4.0-57-generic/updates/dkms/vboxdrv.ko 
@@ -12009,8 +12015,7 @@ insmod /lib/modules/4.4.0-57-generic/updates/dkms/vboxpci.ko
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12020,8 +12025,7 @@ The process at remove is the same.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12047,7 +12051,9 @@ whatis lspci
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>lsusb (8)            - list USB devices
@@ -12077,7 +12083,9 @@ lspci (8)            - list all PCI devices
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Bus 002 Device 002: ID 8087:8000 Intel Corp. 
@@ -12113,7 +12121,9 @@ Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>/:  Bus 04.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/6p, 5000M
@@ -12151,7 +12161,9 @@ lsusb -s <span class="m">003</span>:
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Bus 003 Device 002: ID 5986:0397 Acer, Inc 
@@ -12183,7 +12195,9 @@ lsusb -s <span class="m">003</span>:006
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Bus 003 Device 006: ID 1000:1320 Speed Tech Corp. 
@@ -12213,7 +12227,9 @@ lsusb -d <span class="m">1000</span>:1320
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Bus 003 Device 006: ID 1000:1320 Speed Tech Corp. 
@@ -12225,8 +12241,7 @@ lsusb -d <span class="m">1000</span>:1320
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12254,7 +12269,9 @@ sudo update-usbids
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Bus 001
@@ -12269,8 +12286,7 @@ Bus 004
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12296,7 +12312,9 @@ lspci -n <span class="p">|</span> head -2
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>00:00.0 0600: 8086:0c04 (rev 06)
@@ -12327,7 +12345,9 @@ lspci -nn <span class="p">|</span> head -2
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>00:00.0 Host bridge [0600]: Intel Corporation Xeon E3-1200 v3/4th Gen Core Processor DRAM Controller [8086:0c04] (rev 06)
@@ -12371,7 +12391,9 @@ lspci -d <span class="m">8086</span>:0416:0300
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>00:02.0 VGA compatible controller: Intel Corporation 4th Gen Core Processor Integrated Graphics Controller (rev 06)
@@ -12402,7 +12424,9 @@ Example only contais slot and function:
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>00:02.0 VGA compatible controller: Intel Corporation 4th Gen Core Processor Integrated Graphics Controller (rev 06)
@@ -12435,7 +12459,9 @@ lspci -s <span class="m">04</span>:00.0
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>04:00.0 Network controller: Realtek Semiconductor Co., Ltd. RTL8723BE PCIe Wireless Network Adapter
@@ -12466,7 +12492,9 @@ lspci -s <span class="m">00</span> <span class="p">|</span> head -2
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>00:00.0 Host bridge: Intel Corporation Xeon E3-1200 v3/4th Gen Core Processor DRAM Controller (rev 06)
@@ -12497,7 +12525,9 @@ lspci -k <span class="p">|</span> grep -i vga -A3
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>00:02.0 <span class="ansi-red-intense-fg ansi-bold">VGA</span> compatible controller: Intel Corporation 4th Gen Core Processor Integrated Graphics Controller (rev 06)
@@ -12512,8 +12542,7 @@ lspci -k <span class="p">|</span> grep -i vga -A3
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12521,8 +12550,7 @@ lspci -k <span class="p">|</span> grep -i vga -A3
 </div>
 </div>
 </div>/usr/share/hwdata/pci.idssudo update-pciids
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12544,8 +12572,7 @@ lspci -k <span class="p">|</span> grep -i vga -A3
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12572,8 +12599,7 @@ lspci -k <span class="p">|</span> grep -i vga -A3
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">

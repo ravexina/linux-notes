@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Archiving files</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Virtualization B</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11778,24 +11778,147 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Archive-and-compressing-files">Archive and compressing files<a class="anchor-link" href="#Archive-and-compressing-files">&#182;</a></h1>
+<h2 id="libvirt">libvirt<a class="anchor-link" href="#libvirt">&#182;</a></h2><p>Libvirt is collection of software that provides a convenient way to manage virtual machines and other virtualization functionality, such as storage and network interface management.</p>
+<ul>
+<li>These software pieces include:<ul>
+<li>a long term stable C API</li>
+<li>a daemon (libvirtd)</li>
+<li>a command line utility (virsh). </li>
+</ul>
+</li>
+</ul>
+<p>An primary goal of libvirt is to provide a single way to manage multiple different virtualization providers/hypervisors.<br>
+<em>No need to learn the hypervisor specific tools.</em></p>
+<p>For example: 'virsh list --all' listS the existing virtual machines for any supported hypervisor (KVM, Xen, VMWare ESX, etc.)</p>
+<p><img src="img/virt/libvirt.png" style="width:60%"/></p>
+<h3 id="major-functionality-provided-by-libvirt?">major functionality provided by libvirt?<a class="anchor-link" href="#major-functionality-provided-by-libvirt?">&#182;</a></h3><p>Some of the major libvirt features are:</p>
+<ul>
+<li>VM management: <ul>
+<li>Various domain lifecycle operations such as start, stop, pause, save, restore, and migrate. </li>
+<li>Hotplug operations for many device types including disk and network interfaces, memory, and cpus.</li>
+</ul>
+</li>
+<li>Remote machine support</li>
+<li>Storage management</li>
+<li>Network interface management</li>
+<li>Virtual NAT and Route based networking</li>
+</ul>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Tar">Tar<a class="anchor-link" href="#Tar">&#182;</a></h2>
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>sudo apt-get install qemu-kvm
+</pre></div>
+
 </div>
 </div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>sudo apt-get install libvirt-bin virtinstall virt-manager
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>sudo gpasswd -a milad libvirtd
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>mkdir lab
+<div class=" highlight hl-bash"><pre><span></span>virsh list
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> Id    Name                           State
+----------------------------------------------------
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>virsh net-list
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> Name                 State      Autostart     Persistent
+----------------------------------------------------------
+ default              active     yes           yes
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>virsh <span class="c1"># go to interactive mode</span>
 </pre></div>
 
 </div>
@@ -11808,50 +11931,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span><span class="nb">cd</span> lab
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>cp /etc/default/* . <span class="m">2</span>&gt; /dev/null
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre></pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls <span class="p">|</span> head -5
+<div class=" highlight hl-bash"><pre><span></span>virsh net-destroy --help
 </pre></div>
 
 </div>
@@ -11868,206 +11948,20 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>alsa
-avahi-daemon
-bridge-utils
-bsdmainutils
-console-setup
+<pre>  NAME
+    net-destroy - destroy (stop) a network
+
+  SYNOPSIS
+    net-destroy &lt;network&gt;
+
+  DESCRIPTION
+    Forcefully stop a given network.
+
+  OPTIONS
+    [--network] &lt;string&gt;  network name or uuid
+
+
 </pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>du . -h <span class="c1"># disk usage</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>176K	.
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[60]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -c -f file.tar *
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls -lh file.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>-rw-rw-r-- 1 milad milad 70K May  1 17:35 <span class="ansi-red-intense-fg ansi-bold">file.tar</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls * <span class="p">|</span> grep -v tar <span class="p">|</span> wc -l
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>41
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[61]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span><span class="nb">shopt</span> -s extglob <span class="c1"># extended pattern matching syntax</span>
-rm !<span class="o">(</span>file.tar<span class="o">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[62]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansi-red-intense-fg ansi-bold">file.tar</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[64]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -x -f file.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls <span class="p">|</span> head -5 <span class="p">|</span> tr <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39; &#39;</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>alsa avahi-daemon bridge-utils bsdmainutils console-setup </pre>
 </div>
 </div>
 
@@ -12079,29 +11973,17 @@ rm !<span class="o">(</span>file.tar<span class="o">)</span>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="gzip,-gunzip,-zcat">gzip, gunzip, zcat<a class="anchor-link" href="#gzip,-gunzip,-zcat">&#182;</a></h2>
+<p>stoping a network</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>rm !<span class="o">(</span>file.tar<span class="o">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls
+<div class=" highlight hl-bash"><pre><span></span>virsh net-destroy default
 </pre></div>
 
 </div>
@@ -12118,7 +12000,8 @@ rm !<span class="o">(</span>file.tar<span class="o">)</span>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansi-red-intense-fg ansi-bold">file.tar</span>
+<pre>Network default destroyed
+
 </pre>
 </div>
 </div>
@@ -12129,23 +12012,10 @@ rm !<span class="o">(</span>file.tar<span class="o">)</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>gzip -9 -k file.tar <span class="c1"># -1 fast : -9 best</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls -lh
+<div class=" highlight hl-bash"><pre><span></span>virsh net-list
 </pre></div>
 
 </div>
@@ -12162,9 +12032,9 @@ rm !<span class="o">(</span>file.tar<span class="o">)</span>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>total 88K
--rw-rw-r-- 1 milad milad 70K May  1 17:45 <span class="ansi-red-intense-fg ansi-bold">file.tar</span>
--rw-rw-r-- 1 milad milad 16K May  1 17:45 <span class="ansi-red-intense-fg ansi-bold">file.tar.gz</span>
+<pre> Name                 State      Autostart     Persistent
+----------------------------------------------------------
+
 </pre>
 </div>
 </div>
@@ -12178,20 +12048,7 @@ rm !<span class="o">(</span>file.tar<span class="o">)</span>
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>rm file.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls
+<div class=" highlight hl-bash"><pre><span></span>virsh net-list --inactive <span class="c1"># or --all</span>
 </pre></div>
 
 </div>
@@ -12208,7 +12065,265 @@ rm !<span class="o">(</span>file.tar<span class="o">)</span>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansi-red-intense-fg ansi-bold">file.tar.gz</span>
+<pre> Name                 State      Autostart     Persistent
+----------------------------------------------------------
+ default              inactive   yes           yes
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>disabling autostart</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>virsh net-autostart --disable default
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Network default unmarked as autostarted
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>virsh net-list --all
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> Name                 State      Autostart     Persistent
+----------------------------------------------------------
+ default              inactive   no            yes
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="KVM">KVM<a class="anchor-link" href="#KVM">&#182;</a></h2><p>KVM (Kernel-based Virtual Machine) is a full virtualization solution for Linux containing virtualization extensions (Intel VT or AMD-V).</p>
+<ul>
+<li>It consists of :<ul>
+<li>a loadable kernel module, kvm.ko, that provides the core virtualization infrastructure.</li>
+<li>a processor specific module, kvm-intel.ko or kvm-amd.ko. </li>
+</ul>
+</li>
+</ul>
+<p>KVM does not support paravirtualization for CPU but may support paravirtualization for device drivers to improve I/O performance.<br>
+QEMU uses emulation; KVM uses processor extensions (HVM) for virtualization.</p>
+<p>KVM kernel modules are part of the Linux kernel package
+Userspace tools are usually called "qemu-kvm" or "kvm"
+Linux guest drivers are part of the Linux kernel package</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>sudo apt-get install cpu-checker
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>dpkg -L cpu-checker <span class="p">|</span> grep bin/
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>/usr/s<span class="ansi-red-intense-fg ansi-bold">bin/</span>kvm-ok
+/usr/s<span class="ansi-red-intense-fg ansi-bold">bin/</span>check-bios-nx
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The program will first determine if /proc/cpuinfo contains the flags indicating that
+       the CPU has the Virtualization Technology (VT) capability.<br>
+       Next, it will check if the /dev/kvm device exists.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>kvm-ok
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>INFO: /dev/kvm exists
+KVM acceleration can be used
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>egrep <span class="s1">&#39;vmx|svm&#39;</span> -m1 -c /proc/cpuinfo  <span class="c1"># match first one, just count; vmx: intel, svm: amd</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>"vmx" stands for Virtual Machine Extensions, which adds ten new instructions, These instructions permit entering and exiting a virtual execution mode where the guest OS perceives itself as running with full privilege (ring 0), but the host OS remains protected.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>file /dev/kvm
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>/dev/kvm: character special (10/232)
 </pre>
 </div>
 </div>
@@ -12222,20 +12337,7 @@ rm !<span class="o">(</span>file.tar<span class="o">)</span>
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>gzip --decompress file.tar.gz <span class="c1"># -d, --uncompress, gunzip</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls -lh
+<div class=" highlight hl-bash"><pre><span></span>lsmod <span class="p">|</span> grep kvm
 </pre></div>
 
 </div>
@@ -12252,156 +12354,8 @@ rm !<span class="o">(</span>file.tar<span class="o">)</span>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>total 72K
--rw-rw-r-- 1 milad milad 70K May  1 17:45 <span class="ansi-red-intense-fg ansi-bold">file.tar</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -x -f file.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>gzip -k -9 file.tar<span class="p">;</span> ls
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansi-red-intense-fg ansi-bold">file.tar</span>  <span class="ansi-red-intense-fg ansi-bold">file.tar.bz2</span>  <span class="ansi-red-intense-fg ansi-bold">file.tar.gz</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>file file.tar.gz
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>file.tar.gz: gzip compressed data, was &#34;file.tar&#34;, last modified: Mon May  1 13:41:06 2017, max compression, from Unix
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>cat file.tar.gz <span class="p">|</span> gunzip &gt; file.tar <span class="c1"># get the input from stdin</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>gzip -d -c file.tar.gz &gt; file2.tar <span class="c1">#  Write output on standard output</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zcat file.tar.gz <span class="c1"># similar to -&gt; gunzip -c, gzip -d -c</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls -lhrt
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>total 312K
--rw-rw-r-- 1 milad milad  30K May  1 18:11 <span class="ansi-red-intense-fg ansi-bold">file.tar.gz</span>
--rw-rw-r-- 1 milad milad 140K May  1 18:23 <span class="ansi-red-intense-fg ansi-bold">file.tar</span>
--rw-rw-r-- 1 milad milad 140K May  1 18:23 <span class="ansi-red-intense-fg ansi-bold">file2.tar</span>
+<pre><span class="ansi-red-intense-fg ansi-bold">kvm</span>_intel             172032  0
+<span class="ansi-red-intense-fg ansi-bold">kvm</span>                   544768  1 kvm_intel
 </pre>
 </div>
 </div>
@@ -12414,2427 +12368,19 @@ rm !<span class="o">(</span>file.tar<span class="o">)</span>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="bzip2,-bunzip2,-bzcat">bzip2, bunzip2, bzcat<a class="anchor-link" href="#bzip2,-bunzip2,-bzcat">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>rm !<span class="o">(</span>file.tar<span class="o">)</span> <span class="m">2</span>&gt; /dev/null<span class="p">;</span> ls
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansi-red-intense-fg ansi-bold">file.tar</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>bzip2 -9 file.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls -lh
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>total 20K
--rw-rw-r-- 1 milad milad 17K May  1 18:23 <span class="ansi-red-intense-fg ansi-bold">file.tar.bz2</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>bunzip2 file.tar.bz2
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansi-red-intense-fg ansi-bold">file.tar</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>bzip2 file.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls -lh
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>total 20K
--rw-rw-r-- 1 milad milad 17K May  1 18:23 <span class="ansi-red-intense-fg ansi-bold">file.tar.bz2</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[54]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>bzcat file.tar.bz2 &gt; new.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[57]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>bzip2 -d -c file.tar.bz2 &gt; another.tar <span class="c1"># -c : Write the output on standard output</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[59]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>bunzip2 -c file.tar.bz2 &gt; file.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[62]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>cat file.tar.bz2 <span class="p">|</span> bunzip2 &gt; newfile.tar <span class="c1"># cat file.tar.bz2 | bzip2 -d &gt; newfile.tar</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[63]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>md5sum *.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>2184bc65ce5e94608d6a342dc1949982  another.tar
-2184bc65ce5e94608d6a342dc1949982  file.tar
-2184bc65ce5e94608d6a342dc1949982  newfile.tar
-2184bc65ce5e94608d6a342dc1949982  new.tar
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="xz,-unxz,-xzcat">xz, unxz, xzcat<a class="anchor-link" href="#xz,-unxz,-xzcat">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[69]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>rm !<span class="o">(</span>file.tar<span class="o">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[70]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>xz -k file.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls -lh
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>total 156K
--rw-rw-r-- 1 milad milad 140K May  1 18:30 <span class="ansi-red-intense-fg ansi-bold">file.tar</span>
--rw-rw-r-- 1 milad milad  14K May  1 18:30 <span class="ansi-red-intense-fg ansi-bold">file.tar.xz</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Back-to-tar">Back to tar<a class="anchor-link" href="#Back-to-tar">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[82]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansi-red-intense-fg ansi-bold">file.tar</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[83]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -xf file.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[85]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>rm file.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[86]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls <span class="p">|</span> wc -l
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>41
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[87]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>du -h .
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>244K	.
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[88]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>mkdir cmp
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[89]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -c -z -f cmp/my.tar.gz *
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[90]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -cjf cmp/my.tar.bz2 *
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[91]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -cJf cmp/my.tar.xz *
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[92]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>file cmp/*
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>cmp/my.tar.bz2: bzip2 compressed data, block size = 900k
-cmp/my.tar.gz:  gzip compressed data, last modified: Mon May  1 14:23:16 2017, from Unix
-cmp/my.tar.xz:  XZ compressed data
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[94]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls -lh cmp/*
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>-rw-rw-r-- 1 milad milad 49K May  1 18:53 <span class="ansi-red-intense-fg ansi-bold">cmp/my.tar.bz2</span>
--rw-rw-r-- 1 milad milad 30K May  1 18:53 <span class="ansi-red-intense-fg ansi-bold">cmp/my.tar.gz</span>
--rw-rw-r-- 1 milad milad 93K May  1 18:53 <span class="ansi-red-intense-fg ansi-bold">cmp/my.tar.xz</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[102]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span><span class="nv">GZIP</span><span class="o">=</span>-9 tar -cjf cmp/file.tar.gz * --exclude cmp
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[103]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls cmp/file.tar.gz -lh
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>-rw-rw-r-- 1 milad milad 17K May  1 19:08 <span class="ansi-red-intense-fg ansi-bold">cmp/file.tar.gz</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -xOf cmp/my.tar.gz &gt; a.tar <span class="c1"># extract to stdout</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[106]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -t -f cmp/my.tar.gz <span class="p">|</span> head -4 <span class="c1"># list</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>alsa
-avahi-daemon
-bridge-utils
-bsdmainutils
-tar: write error
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Paths-in-tar">Paths in tar<a class="anchor-link" href="#Paths-in-tar">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[128]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -cf test.tar /etc/grub.d <span class="m">2</span>&gt; /dev/null
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[129]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -tf test.tar <span class="p">|</span> tail -1
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>etc/grub.d/30_os-prober
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[133]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -cPf test.tar /etc/grub.d <span class="m">2</span>&gt; /dev/null <span class="c1"># keep the leading /</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[137]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -tf test.tar <span class="m">2</span>&gt; /dev/null <span class="p">|</span> tail -1
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>/etc/grub.d/30_os-prober
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[130]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -cf test.tar -C /etc/grub.d . <span class="c1"># Change dir</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[132]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -tf test.tar <span class="p">|</span> tail -1
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>./30_os-prober
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>find /etc/grub.d/ <span class="p">|</span> tar -cf grub.tar -T - -Pp <span class="c1"># From stdin while keeping the / and permissions</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Updating">Updating<a class="anchor-link" href="#Updating">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[169]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>rm -r *
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[185]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;hi 1&#39;</span> &gt; <span class="m">1</span> <span class="p">;</span> <span class="nb">echo</span> <span class="s1">&#39;hi 2&#39;</span> &gt; <span class="m">2</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[186]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -cf <span class="m">1</span>.tar <span class="m">1</span><span class="p">;</span> tar -cf <span class="m">2</span>.tar <span class="m">2</span><span class="p">;</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[187]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>rm <span class="m">1</span> <span class="m">2</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[188]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls -l
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>total 24
--rw-rw-r-- 1 milad milad 10240 May  1 19:39 <span class="ansi-red-intense-fg ansi-bold">1.tar</span>
--rw-rw-r-- 1 milad milad 10240 May  1 19:39 <span class="ansi-red-intense-fg ansi-bold">2.tar</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[189]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -xOf <span class="m">1</span>.tar <span class="c1"># -O: to the stdout</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>hi 1
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[190]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;bye 1&#39;</span> &gt; <span class="m">1</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[191]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -uf <span class="m">1</span>.tar <span class="m">1</span>  <span class="c1"># update file 1 if it&#39;s newer</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[193]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -tf <span class="m">1</span>.tar <span class="c1"># list files</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1
-1
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[192]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -xOf <span class="m">1</span>.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>hi 1
-bye 1
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -xf <span class="m">2</span>.tar --occurrence<span class="o">=</span><span class="m">1</span> filename
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -xf <span class="m">2</span>.tar --backup filename <span class="c1"># 1 1~</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Appending-a-tarball-into-archive">Appending a tarball into archive<a class="anchor-link" href="#Appending-a-tarball-into-archive">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[194]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -A <span class="m">1</span>.tar -f <span class="m">2</span>.tar <span class="c1"># Appends 1.tar into 2.tar</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[196]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -f <span class="m">2</span>.tar -t <span class="c1"># list files</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>2
-1
-1
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[197]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -f <span class="m">2</span>.tar -xO
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>hi 2
-hi 1
-bye 1
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[199]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>rm <span class="m">1</span> <span class="c1"># remove the new one we just creat it</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[200]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -f <span class="m">2</span>.tar -x <span class="m">1</span> <span class="c1"># only extract file with the name `1`</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[201]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1  <span class="ansi-red-intense-fg ansi-bold">1.tar</span>  <span class="ansi-red-intense-fg ansi-bold">2.tar</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[202]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>cat <span class="m">1</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>bye 1
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Append-a-file-into-archive">Append a file into archive<a class="anchor-link" href="#Append-a-file-into-archive">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -tf <span class="m">1</span>.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -r -f <span class="m">1</span>.tar <span class="m">2</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -tf <span class="m">1</span>.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1
-2
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Delete">Delete<a class="anchor-link" href="#Delete">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[203]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -f <span class="m">2</span>.tar --delete <span class="m">1</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[204]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -tf <span class="m">2</span>.tar <span class="c1"># list files</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>2
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>tar -f <span class="m">2</span>.tar --delete --occurrence<span class="o">=</span><span class="m">2</span> filename
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="cpio">cpio<a class="anchor-link" href="#cpio">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[205]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>whatis cpio
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>cpio (1)             - copy files to and from archives
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[209]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>find /etc/grub.d <span class="p">|</span> head -3
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>/etc/grub.d
-/etc/grub.d/05_debian_theme
-/etc/grub.d/40_custom
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[210]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>find /etc/grub.d <span class="p">|</span> cpio -o &gt; grub-d.cpio
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>106 blocks
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[211]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>file grub-d.cpio
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>grub-d.cpio: cpio archive
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[219]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>cpio -id --no-absolute-filenames &lt; grub-d.cpio
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>cpio: Removing leading `/&#39; from member names
-106 blocks
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[220]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansi-blue-intense-fg ansi-bold">etc</span>  <span class="ansi-red-intense-fg ansi-bold">grub-d.cpio</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>rm -r etc grub-d.cpio
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls /boot/init*
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>/boot/initrd.img-4.4.0-72-generic  /boot/initrd.img-4.4.0-75-generic
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>cp /boot/initrd.img-4.4.0-75-generic .
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>file initrd.img-4.4.0-75-generic
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>initrd.img-4.4.0-75-generic: gzip compressed data, last modified: Fri Apr 28 10:16:15 2017, from Unix
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zcat initrd.img-4.4.0-75-generic <span class="p">|</span> cpio -id --no-absolute-filenames
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>192678 blocks
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>rm initrd.img-4.4.0-75-generic
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansi-blue-intense-fg ansi-bold">bin</span>  <span class="ansi-blue-intense-fg ansi-bold">conf</span>  <span class="ansi-blue-intense-fg ansi-bold">etc</span>  <span class="ansi-green-intense-fg ansi-bold">init</span>  <span class="ansi-blue-intense-fg ansi-bold">lib</span>  <span class="ansi-blue-intense-fg ansi-bold">lib64</span>  <span class="ansi-blue-intense-fg ansi-bold">run</span>  <span class="ansi-blue-intense-fg ansi-bold">sbin</span>  <span class="ansi-blue-intense-fg ansi-bold">scripts</span>  <span class="ansi-blue-intense-fg ansi-bold">usr</span>  <span class="ansi-blue-intense-fg ansi-bold">var</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="zip,-unzip">zip, unzip<a class="anchor-link" href="#zip,-unzip">&#182;</a></h2><p>The  zip program puts one or more compressed files into a single zip archive, along with information about the files (name, path, date, time of last modifica‐
-       tion, protection, and check information to verify file integrity).</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zip my.zip grub.tar
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>  adding: grub.tar (deflated 79%)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls -lh
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>total 76K
--rw-rw-r-- 1 milad milad 60K May  2 12:13 <span class="ansi-red-intense-fg ansi-bold">grub.tar</span>
--rw-rw-r-- 1 milad milad 13K May  2 12:14 <span class="ansi-red-intense-fg ansi-bold">my.zip</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>rm -r *
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zip -jr9 grub.d.zip /etc/grub.d/  <span class="c1"># junk the path</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>  adding: 05_debian_theme (deflated 58%)
-  adding: 40_custom (deflated 29%)
-  adding: 20_linux_xen (deflated 67%)
-  adding: 00_header (deflated 68%)
-  adding: 10_linux (deflated 67%)
-  adding: README (deflated 35%)
-  adding: 41_custom (deflated 46%)
-  adding: 30_uefi-firmware (deflated 42%)
-  adding: 30_os-prober (deflated 70%)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>ls -lh
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>total 20K
--rw-rw-r-- 1 milad milad 20K May  2 12:54 <span class="ansi-red-intense-fg ansi-bold">grub.d.zip</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>file grub.d.zip
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>grub.d.zip: Zip archive data, at least v2.0 to extract
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="List-files-in-a-ZIP-archive">List files in a ZIP archive<a class="anchor-link" href="#List-files-in-a-ZIP-archive">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>unzip -l grub.d.zip
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Archive:  grub.d.zip
-  Length      Date    Time    Name
----------  ---------- -----   ----
-     6258  2016-03-15 21:38   05_debian_theme
-      214  2016-07-23 04:39   40_custom
-    11082  2016-07-23 04:39   20_linux_xen
-     9791  2016-07-23 04:39   00_header
-    12512  2017-03-02 00:31   10_linux
-      483  2016-07-23 04:39   README
-      216  2016-07-23 04:39   41_custom
-     1418  2016-07-23 04:39   30_uefi-firmware
-    11692  2016-07-23 04:39   30_os-prober
----------                     -------
-    53666                     9 files
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>the names, uncompressed file sizes and modification dates and times of the specified files are printed, along with totals for all files specified.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>unzip -v grub.d.zip
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Archive:  grub.d.zip
- Length   Method    Size  Cmpr    Date    Time   CRC-32   Name
---------  ------  ------- ---- ---------- ----- --------  ----
-    6258  Defl:X     2634  58% 2016-03-15 21:38 495dc52b  05_debian_theme
-     214  Defl:X      151  29% 2016-07-23 04:39 7dc9d73d  40_custom
-   11082  Defl:X     3654  67% 2016-07-23 04:39 800a6f67  20_linux_xen
-    9791  Defl:X     3182  68% 2016-07-23 04:39 bc94e4f7  00_header
-   12512  Defl:X     4071  68% 2017-03-02 00:31 6fd29927  10_linux
-     483  Defl:X      314  35% 2016-07-23 04:39 84e28493  README
-     216  Defl:X      116  46% 2016-07-23 04:39 0d9cbda7  41_custom
-    1418  Defl:X      825  42% 2016-07-23 04:39 96573839  30_uefi-firmware
-   11692  Defl:X     3505  70% 2016-07-23 04:39 3c1d6615  30_os-prober
---------          -------  ---                            -------
-   53666            18452  66%                            9 files
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zipinfo -2 grub.d.zip <span class="c1"># read the man page, got a bunch of options to handle the list</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>etc/grub.d/
-etc/grub.d/05_debian_theme
-etc/grub.d/40_custom
-etc/grub.d/20_linux_xen
-etc/grub.d/00_header
-etc/grub.d/10_linux
-etc/grub.d/README
-etc/grub.d/41_custom
-etc/grub.d/30_uefi-firmware
-etc/grub.d/30_os-prober
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Zip-Encryption">Zip Encryption<a class="anchor-link" href="#Zip-Encryption">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zip -e my.zip /etc/ <span class="c1"># encrypt using password</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zipcloak my.zip <span class="c1"># after creation</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zipcloak -d my.zip <span class="c1"># remove encryption</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[57]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zip -jj9r w3m.zip /etc/w3m/
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>  adding: config (deflated 50%)
-  adding: mailcap (deflated 5%)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[58]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>unzip -v w3m.zip
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Archive:  w3m.zip
- Length   Method    Size  Cmpr    Date    Time   CRC-32   Name
---------  ------  ------- ---- ---------- ----- --------  ----
-    1262  Defl:X      625  51% 2017-03-02 00:16 6cde7dbe  config
-      44  Defl:X       42   5% 2017-03-02 00:16 eac7cd80  mailcap
---------          -------  ---                            -------
-    1306              667  49%                            2 files
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[64]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zipnote w3m.zip
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>@ config
-@ (comment above this line)
-@ mailcap
-@ (comment above this line)
-@ (zip file comment below this line)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>nano tmp
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><code>@ config
-Comment by ravexina (Milad As)
-@ (comment above this line)
-@ mailcap
-github.com/ravexina/
-@ (comment above this line)
-@ (zip file comment below this line)</code></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zipnote -w w3m.zip &lt; tmp
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zipnote w3m.zip
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>@ config
-Comment by ravexina (Milad As)
-@ (comment above this line)
-@ mailcap
-github.com/ravexina/
-@ (comment above this line)
-@ (zip file comment below this line)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[74]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>unzip -l w3m.zip
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Archive:  w3m.zip
-  Length      Date    Time    Name
----------  ---------- -----   ----
-     1262  2017-03-02 00:16   config
-Comment by ravexina (Milad As)
-       44  2017-03-02 00:16   mailcap
-github.com/ravexina/
----------                     -------
-     1306                     2 files
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Renaming">Renaming<a class="anchor-link" href="#Renaming">&#182;</a></h4><p>Save it in tmp</p>
-<p><code>@ config
-@=newconfig-name
-Comment by ravexina (Milad As)
-@ (comment above this line)
-@ mailcap
-github.com/ravexina/
-@ (comment above this line)
-@ (zip file comment below this line)</code></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zipnote -w w3m.zip &lt; tmp
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[76]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-bash"><pre><span></span>zipinfo -2 w3m.zip
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>newconfig-name
-mailcap
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-<h4 id="References">References<a class="anchor-link" href="#References">&#182;</a></h4><p>man pages of: <code>tar, gzip, bzip2, xz, zip, unzip, zipinfo, zipnote and cpio</code></p>
-<p><a href="https://www.gnu.org/software/cpio/manual/html_mono/cpio.html">https://www.gnu.org/software/cpio/manual/html_mono/cpio.html</a><br>
-<a href="https://www.gnu.org/software/tar/manual/tar.html">https://www.gnu.org/software/tar/manual/tar.html</a><br>
-<a href="http://www.info-zip.org/mans/unzip.html">http://www.info-zip.org/mans/unzip.html</a></p>
-
-</div>
-</div>
-</div>
+<h2 id="QEMU">QEMU<a class="anchor-link" href="#QEMU">&#182;</a></h2><p>QEMU is a generic and open source machine emulator and virtualizer.</p>
+<p>When used as a machine emulator, QEMU can run OSes and programs made for one machine (e.g. an ARM board) on a different machine (e.g. your own PC). By using dynamic translation, it achieves very good performance.</p>
+<p>When used as a virtualizer, QEMU achieves near native performance by executing the guest code directly on the host CPU. QEMU supports virtualization when executing under the Xen hypervisor or using the KVM kernel module in Linux. When using KVM, QEMU can virtualize x86, server and embedded PowerPC, 64-bit POWER, S390, 32-bit and 64-bit ARM, and MIPS guests.</p>
+<p>KVM (Kernel Virtual Machine) is a Linux kernel module that allows a user space program to utilize the hardware virtualization features of various processors. Today, it supports recent Intel and AMD processors (x86 and x86_64), PPC 440, PPC 970, S/390, ARM (Cortex A15, AArch64), and MIPS32 processors.</p>
+<p>QEMU can make use of KVM when running a target architecture that is the same as the host architecture. For instance, when running qemu-system-x86 on an x86 compatible processor, you can take advantage of the KVM acceleration - giving you benefit for your host and your guest system.</p>
+<p>The KVM project used to maintain a fork of QEMU called qemu-kvm. All feature differences have been merged into QEMU upstream and the development of the fork suspended.</p>
+<p>To use KVM pass --enable-kvm to QEMU.</p>
+
+</div>
+</div>
+</div>https://wiki.archlinux.org/index.php/Libvirt
+http://wiki.libvirt.org/page/FAQ#What_is_libvirt.3F
+http://www.linux-kvm.org/page/FAQ#General_KVM_information
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">

@@ -11729,9 +11729,7 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}
-
-@media print {
+}@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11752,7 +11750,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11776,8 +11774,7 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11810,7 +11807,9 @@ div#notebook {
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>id (1)               - print real and effective user and group IDs
@@ -11839,7 +11838,9 @@ div#notebook {
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>uid=1000(milad) gid=1000(milad) groups=1000(milad),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),114(lpadmin),115(sambashare),119(vboxusers),123(wireshark)
@@ -11869,7 +11870,9 @@ id -un
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1000
@@ -11900,7 +11903,9 @@ id -gn
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1000
@@ -11931,7 +11936,9 @@ id -Gn
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1000 4 24 27 30 46 114 115 119 123
@@ -11961,7 +11968,9 @@ milad adm cdrom sudo dip plugdev lpadmin sambashare vboxusers wireshark
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1000
@@ -11973,8 +11982,7 @@ milad adm cdrom sudo dip plugdev lpadmin sambashare vboxusers wireshark
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11994,13 +12002,26 @@ milad adm cdrom sudo dip plugdev lpadmin sambashare vboxusers wireshark
 </div>
 </div>
 
-</div>-U create a same group as username and add user to it  
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>-U create a same group as username and add user to it  
 -m create home dir  
--M do not create home directory  
+-M <span class="k">do</span> not create home directory  
 -d home dir  
 
 /etc/skel                Default SKEL_DIR  
 /etc/default/useradd     Default settings
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
@@ -12014,10 +12035,22 @@ usermod -U milad <span class="c1"># unlock</span>
 </div>
 </div>
 
-</div>  -a, --append                  append the user to the supplemental GROUPS
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>-a, --append                  append the user to the supplemental GROUPS
   -m, --move-home               move contents of the home directory to the
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12040,14 +12073,26 @@ passwd username
 </div>
 </div>
 
-</div>/usr/sbin/nologin - to prevent login
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>/usr/sbin/nologin - to prevent login
 
-# have look at:
+<span class="c1"># have look at:</span>
 /etc/shadow
 milad:x:17032:0:99999:7:::
 user : passHash : lastPassCh : DayToAllowPassCh : DayToRequirePassCh : warnBeforeExpire : activeAfterExpire : expireDate
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12057,7 +12102,20 @@ ex: how many day to change pass or shoud change pass</p>
 
 </div>
 </div>
-</div>chage - change user password expiry information
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>chage - change user password expiry information
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
@@ -12075,7 +12133,9 @@ ex: how many day to change pass or shoud change pass</p>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Last password change					: Aug 19, 2016
@@ -12106,18 +12166,30 @@ Number of days of warning before password expires	: 7
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Groups">Groups<a class="anchor-link" href="#Groups">&#182;</a></h2>
 </div>
 </div>
-</div>groupadd
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-bash"><pre><span></span>groupadd
 groupmod
 groupdel
 gpasswd
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[21]:</div>
@@ -12135,7 +12207,9 @@ gpasswd
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>sudo:x:27:milad
@@ -12164,7 +12238,9 @@ gpasswd
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>milad : milad adm cdrom sudo dip plugdev lpadmin sambashare vboxusers wireshark
@@ -12193,7 +12269,9 @@ gpasswd
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>10
@@ -12223,7 +12301,9 @@ ls -lhd <span class="nb">test</span>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>drwxrwxr-x 2 milad milad 4.0K Dec 28 07:15 <span class="ansi-blue-intense-fg ansi-bold">test</span>
@@ -12235,8 +12315,7 @@ ls -lhd <span class="nb">test</span>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12262,7 +12341,9 @@ ls -lhd <span class="nb">test</span>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>drwxrwxr-x 2 milad adm 4.0K Dec 28 07:15 <span class="ansi-blue-intense-fg ansi-bold">test</span>
@@ -12292,7 +12373,9 @@ ls -lhd <span class="nb">test</span>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>drwxrwxr-x 2 milad milad 4.0K Dec 28 07:15 <span class="ansi-blue-intense-fg ansi-bold">test</span>
@@ -12323,8 +12406,7 @@ ls -l
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12346,8 +12428,7 @@ ls -l
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
