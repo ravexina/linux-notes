@@ -6,7 +6,7 @@ This project contains my GNU/Linux notes; Most of the topics included are from d
 ## How to use it?
 You can simply click on `*.ipynb` files to view them in your browser, you can also grab a copy of project or clone it using `git`, then use `jupyter-notebook` to view/edit `ipynb` files.
 
-There is a html export of project available at: https://ravexina.github.io/linux-notes too, you can browse and explore it more easily if you wish.
+There is a html export of project available at: https://ravexina.github.io/linux-notes too, you can browse and explore it more conveniently if you wish.
 
 *This project will be updated time to times to cover more topics.*
 
