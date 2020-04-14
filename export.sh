@@ -3,16 +3,17 @@ set -e
 
 # Convert notes to html
 echo "Generating html export from ipynb files"
-jupyter-nbconvert *.ipynb &> /dev/null
+find -iname "*.ipynb" -exec  jupyter-nbconvert {} &> /dev/null +;
 
 # Remove old files
 echo "Removing old html files and img dir"
 rm ./docs/*.html
+sleep 1;
 rm -rf ./docs/img/
 
 # Move all html files to ./docs except license.html
 echo "Moving html files to ./docs"
-find -maxdepth 1 -iname "*.html" -not -name LICENSE.html -exec mv {} docs/ \;
+find -maxdepth 2 -not -path "./.ipynb_checkpoints/*" -iname "*.html" -not -name LICENSE.html -exec mv -t docs/ {} \+
 
 echo "Creating a copy of img in ./docs"
 cp -r ./img ./docs/img
