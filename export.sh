@@ -15,7 +15,7 @@ LIST=$(find -maxdepth 1 -iname "*.html" -not -iname index.html -not -iname _temp
 echo "$LIST" | sed "s/.*/<li><a href='&.html'>&<\/a><\/li>/" > links.txt
 
 # Generate a new index.html
-cp ./_template.html ./index.html
+cp ./template/_template.html ./index.html
 
 # Paste the generated links into index.html
 sed -i '/LINKS_PLACEHOLDER/r links.txt' ./index.html
