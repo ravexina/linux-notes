@@ -5,9 +5,11 @@ jupyter-nbconvert *.ipynb &> /dev/null
 
 # Remove old files
 rm ./docs/*.html
+rm -rf ./docs/img/
 
 # Move all html files to ./docs except license.html
 find -maxdepth 1 -iname "*.html" -not -name LICENSE.html -exec mv {} docs/ \;
+cp -r ./img ./docs/img
 
 cd ./docs
 
