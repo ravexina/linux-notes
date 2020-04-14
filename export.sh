@@ -1,14 +1,19 @@
 #!/bin/bash
 
 # Convert notes to html
+echo "Generating html export from ipynb files"
 jupyter-nbconvert *.ipynb &> /dev/null
 
 # Remove old files
+echo "Removing old html files and img dir"
 rm ./docs/*.html
 rm -rf ./docs/img/
 
 # Move all html files to ./docs except license.html
+echo "Moving html files to ./docs"
 find -maxdepth 1 -iname "*.html" -not -name LICENSE.html -exec mv {} docs/ \;
+
+echo "Creating a copy of img in ./docs"
 cp -r ./img ./docs/img
 
 cd ./docs
@@ -17,14 +22,19 @@ cd ./docs
 LIST=$(find -maxdepth 1 -iname "*.html" -not -iname index.html -not -iname _template.html | grep -Po "(?<=/).*(?=\.html)")
 
 # Generate a un-ordered html list of the file names
+echo "Generating an html un-ordered list linked to exported html files"
 echo "$LIST" | sed "s/.*/<li><a href='&.html'>&<\/a><\/li>/" > links.txt
 
 # Generate a new index.html
+echo "Creating index.html"
 cp ./template/_template.html ./index.html
 
 # Paste the generated links into index.html
+echo "Adding links to index.html"
 sed -i '/LINKS_PLACEHOLDER/r links.txt' ./index.html
 
+echo "Removing leftovers"
 rm links.txt
 
+echo "Done"
 exit 0
