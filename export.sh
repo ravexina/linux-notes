@@ -3,6 +3,9 @@
 # Convert notes to html
 jupyter-nbconvert *.ipynb &> /dev/null
 
+# Remove old files
+rm ./docs/*.html
+
 # Move all html files to ./docs except license.html
 find -maxdepth 1 -iname "*.html" -not -name LICENSE.html -exec mv {} docs/ \;
 
