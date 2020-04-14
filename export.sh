@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Convert notes to html
 echo "Generating html export from ipynb files"
