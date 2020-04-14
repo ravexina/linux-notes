@@ -10,6 +10,10 @@ There is a html export of project available at: https://ravexina.github.io/linux
 
 *This project will be updated time to times to cover more topics.*
 
+## Mirrors
+- https://github.com/ravexina/linux-notes/
+- https://gitlab.com/ravexina/linux-notes/
+
 ## License
 
 [Linux Notes](https://github.com/ravexina/linux-notes/) by [Milad As (Ravexina)](https://github.com/ravexina) is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.  
